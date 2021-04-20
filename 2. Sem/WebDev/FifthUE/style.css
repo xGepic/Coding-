@@ -1,0 +1,28 @@
+body {
+    text-align: center;
+    background-color: Black;
+	color: white;
+	font-size: 50px;
+}
+
+#riddle {
+	margin-left: 23px;
+    margin-top: 23px;
+    position: absolute;
+	width: 500px;
+	height: 500px;
+	left: 50%;
+	top:50%;
+	margin-left: -250px;
+	margin-top: -250px;
+}
+		   
+#riddle img {
+	float: left;
+	opacity: 1.0;
+	border: 1px solid black;
+}
+
+#riddle img:hover {
+	cursor: pointer;
+}
