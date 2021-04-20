@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="jquery-3.5.1.min.js"></script>
+    <script src="jquery-ui.min.js"></script>
+    <title>Animieren</title>
+</head>
+<body>
+    <p>Fügen Sie Elemente hinzu, ziehen Sie sie per Drag & Drop, um die Reihenfolge zu ändern, und doppelklicken Sie auf Elemente, um sie zu entfernen.</p>
+    <input type="text" id="item">
+    <button id="add">add</button>
+    <ol></ol><br>
+    <button id="show">show</button>
+    <button id="hide">hide</button>
+    <button id="animate">bigger</button>
+    <button id="animatee">smaller</button>
+    <script>
+        function addItem() {
+            let e = $("#item").val();
+            $("ol").append("<li>" + e + "</li>");
+            $("li:last-of-type").hide().slideDown();
+            console.log("element added");
+            $("#item").val("");
+        }
+        function removeItem() {
+            $(this).remove();
+            console.log(document);
+        }
+        function showit() {
+            $("ol").show(500);
+            console.log(document);
+        }
+        function hideit(){
+            $("ol").hide(500);
+        }
+        function bigger(){
+            $("li").animate({"font-size": "35px"});
+        }
+        function smaller(){
+            $("li").animate({"font-size": "9px"});
+        }
+        $(document).ready(
+            $("#add").on("click", addItem),
+            $(document).on("dblclick", "li", removeItem),
+            $("ol").sortable(),
+            $("#show").on("click", showit),
+            $("#hide").on("click", hideit),
+            $("#animate").on("click", bigger),
+            $("#animatee").on("click", smaller)
+        );
+    </script>
+</body>
+</html>
