@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="jquery-3.5.1.min.js"></script>
+    <title>Listenelemente entfernen</title>
+</head>
+<body>
+    <p>Fügen Sie Elemente hinzu und klicken Sie auf Elemente, um sie zu entfernen.</p>
+    <input type="text" id="item">
+    <button id="add">add</button>
+    <ol></ol>
+    <script>
+        function addItem() {
+            let e = $("#item").val();
+            $("ol").append("<li>" + e + "</li>");
+            console.log("element added");
+        }
+        function removeItem() {
+            $(this).remove();
+        }
+        $(document).ready(
+            $("#add").on("click", addItem),
+            $(document).on("click", "li", removeItem)
+        );
+    </script>
+</body>
+</html>
