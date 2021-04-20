@@ -1,0 +1,18 @@
+body{
+    background: linear-gradient(to right, #CCA06E, #6892A3);
+}
+
+h1{
+    text-align: center;
+    font-size: 20px;
+}
+.Tabelle{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+table, td {
+    border: 1px solid black;
+    text-align: center;
+}
