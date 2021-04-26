@@ -1,50 +1,111 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
-    <link rel="stylesheet" href="style.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="style.css" />
     <script defer src="script.js"></script>
     <script src="https://code.jquery.com/jquery-latest.js"></script>
     <title>Appointment Finder</title>
-</head>
-<body>
+  </head>
+  <body>
     <h1>Appointment Finder</h1>
     <div class="cont">
       <div class="Buttondiv">
-        <button class="newApp" type="button" onclick="addTableRow()">New Appointment</button> 
+        <button id="myBtn" class="newApp">New Appointment</button>
+        <button class="newApp" onclick="deleteRow()">Delete</button>
+        <div id="myModal" class="modal">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h2>New Appointment</h2>
+              <span class="close">x</span>
+            </div>
+            <div class="modal-body">
+              <form action="" class="my-form">
+                <!-- to do -->
+                <label for="Title">Title:</label><br />
+                <input type="text" id="title" name="title" /><br />
+                <label for="Location">Location:</label><br />
+                <input type="text" id="location" name="location" /><br />
+                <label for="Duration">Duration:</label><br />
+                <input type="text" id="duration" name="duration" /><br />
+                <label for="Information">Information:</label><br />
+                <input type="text" id="information" name="information" /><br />
+                <label for="Appointmentoption1">Appointment Option 1</label
+                ><br />
+                <input
+                  type="datetime-local"
+                  id="appointmentoption1"
+                  name="appointmentoption1"
+                /><br />
+                <label for="Appointmentoption2">Appointment Option 2</label
+                ><br />
+                <input
+                  type="datetime-local"
+                  id="appointmentoption2"
+                  name="appointmentoption2"
+                /><br />
+                <label for="Appointmentoption3">Appointment Option 3</label
+                ><br />
+                <input
+                  type="datetime-local"
+                  id="appointmentoption3"
+                  name="appointmentoption3"
+                /><br />
+                <label for="Appointmentoption4">Appointment Option 4</label
+                ><br />
+                <input
+                  type="datetime-local"
+                  id="appointmentoption4"
+                  name="appointmentoption4"
+                /><br />
+                <label for="Appointmentoption5">Appointment Option 5</label
+                ><br />
+                <input
+                  type="datetime-local"
+                  id="appointmentoption5"
+                  name="appointmentoption5"
+                /><br/>
+                <input type="button" id="theButton" value="Add">
+              </form>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <div class="Tabelle">
-        <table id="myTable" >
-            <tr>
-              <td><b>Titel</b></td>
-              <td><b>Location</b></td>
-              <td><b>Duration</b></td>
-              <td><b>Information</b></td>
-            </tr>
-            <tr>
-              <td><a href="Testapp.html">Test Appointment</a></td>
-              <td>Test Location</td>
-              <td>Test Duration</td>
-              <td>Test Information</td>
-            </tr>
-            <tr>
-              <td><a href="#">Test Appointment</a></td>
-              <td>Test Location</td>
-              <td>Test Duration</td>
-              <td>Test Information</td>
-            </tr>
-            <tr>
-              <td><a href="#">Test Appointment</a></td>
-              <td>Test Location</td>
-              <td>Test Duration</td>
-              <td>Test Information</td>
-            </tr>
-          </table>
-          <br>
+      <table id="myTableAppointment">
+        <tr>
+          <td><b>Titel</b></td>
+          <td><b>Location</b></td>
+          <td><b>Duration</b></td>
+          <td><b>Information</b></td>
+        </tr>
+        <tr>
+          
+        </tr>
+        <tr>
+          
+        </tr>
+        <tr>
+          
+        </tr>
+      </table>
+      <br/>
     </div>
-</body>
+  </body>
+  <footer>
+    <div class="cont"></div>
+    <p>
+      Author: Vasilije Dikić & Stefan Simanek<br />
+      <a href="mailto:example@example.com">example@example.com</a>
+    </p>
+  </footer>
 </html>
