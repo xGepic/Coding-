@@ -1,35 +1,72 @@
 #include <iostream>
 #include <string>
-#include "Treecheck.h"
+#include <cctype>
+#include "TreeManager.h"
 
 using namespace std;
 
-string getFileName() {
-
-	cout << "[TreeCheck 1.0]" << endl << endl;
-	cout << "Programmaufruf: (treecheck) filename" << endl;
-	cout << "-Integerschluesselwerte werden aus einem Textfile eingelesen-" << endl;
-
-	string temp1, temp2;
-
-	while (true) {
-
-		cin >> temp1 >> temp2;
-
-		if (temp1 != "treecheck") {
-			cout << "Error!" << endl;
-		}
-		else {
-			return temp2;
-		}
-	}
-}
-
 int main() {
 
-	Treecheck* treecheck = new Treecheck();
-	string filename = getFileName();
-	treecheck->readFile(filename);
+	int c = 0;
+
+	TreeManager* tree = new TreeManager();
+	TreeManager* subtree = new TreeManager();
+
+	cout << "[TreeCheck]" << endl << endl;
+	cout << "Programmaufruf: (treecheck) filename" << endl;
+	cout << "Oder: " << endl;
+	cout << "Programmaufruf: (treecheck) filename subtree-filename" << endl;
+	cout << "-Integerschluesselwerte werden aus einem Textfile eingelesen-" << endl;
+
+	string temp1 = "";
+	string temp2 = "";
+	string temp3 = "";
+	string tooMuch = "";
+	string temp;
+	getline(std::cin, temp);
+
+	 unsigned int i = 0;
+
+	for (; i < temp.size() && temp[i] != ' '; i++) {
+
+		temp1 += temp[i];
+	}
+
+	i++;
+
+	for (; i < temp.size() && temp[i] != ' '; i++) {
+
+		temp2 += temp[i];
+	}
+
+	i++;
+
+	for (; i < temp.size() && temp[i] != ' '; i++) {
+
+		temp3 += temp[i];
+	}
+
+	for (; i < temp.size(); i++) {
+
+		tooMuch += temp[i];
+	}
+
+	if (tooMuch != "" || temp1 != "treecheck") {
+
+		cout << "Invalid input" << endl;
+	}
+	else if (temp3 == "") {
+
+		tree->readFile(temp2);
+		tree->statisticsCheck();
+	}
+	else {
+
+		tree->readFile(temp2);
+		subtree->readFile(temp3);
+
+		tree->searchSubtree(subtree->getRoot());
+	}
 
 	return 0;
 }
