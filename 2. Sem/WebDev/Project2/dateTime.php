@@ -4,6 +4,7 @@ class DateAndTime {
     public $date;
     public $time;
     public $nameVonBenutzer;
+    public $comment;
 
     function __construct($date, $time) {
         $this->date = $date;
@@ -17,4 +18,6 @@ class DateAndTime {
       public function setTime($time) { $this->time=$time; }
       public function getNameVonBenutzer() { return $this->nameVonBenutzer; }
       public function setNameVonBenutzer($nameVonBenutzer) { $this->nameVonBenutzer=$nameVonBenutzer; }
+      public function getComment() { return $this->comment; }
+      public function setComment($comment) { $this->comment=$comment; }
 }
