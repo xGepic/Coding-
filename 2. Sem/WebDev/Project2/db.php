@@ -19,7 +19,7 @@ class db
                 `id` int(11) NOT NULL AUTO_INCREMENT,
                 `titel` varchar(100) NOT NULL,
                 `ort` varchar(100) NOT NULL,
-                `duration` date NOT NULL,
+                `duration` int(11) NOT NULL,
                 `info` varchar(100) NOT NULL,
                 PRIMARY KEY (`id`)
                 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
@@ -29,11 +29,19 @@ class db
                 `idAppointment` int(11) NOT NULL,
                 `date` date NOT NULL,
                 `time` time NOT NULL,
-                `nameVonBenutzer` varchar(100),
-                PRIMARY KEY (`id`)
+                PRIMARY KEY (`id`),
+                FOREIGN KEY (idAppointment) REFERENCES appointments(id)
                 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
+            $sqlCreateTable3 = "
+                CREATE TABLE IF NOT EXISTS `userDate` (
+                  `idDate` int(11) NOT NULL,
+                  `name` varchar(100) NOT NULL,
+                  `comment` varchar(100),
+                  FOREIGN KEY (idDate) REFERENCES dates(id)
+                  ) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
             mysqli_query($this->con, $sqlCreateTable1);
             mysqli_query($this->con, $sqlCreateTable2);
+            mysqli_query($this->con, $sqlCreateTable3);
         }
     }
 
@@ -86,12 +94,34 @@ class db
         return 1;
     }
 
-    public function queryBookAppointment($name, $id)
+    public function queryBookAppointment($id,$name,$comment)
     {
         $id = mysqli_real_escape_string($this->con, $id);
         $name = mysqli_real_escape_string($this->con, $name);
-        $query = 'UPDATE `dates` SET `nameVonBenutzer`= "'.$name.'" WHERE `id`="'.$id.'"';
-        if($ergebnis = mysqli_query($this->con, $query))
+        $comment = mysqli_real_escape_string($this->con, $comment);
+        $query="INSERT INTO `userdate`(`idDate`,`name`,`comment`) VALUES ('". $id ."','".$name."','".$comment."')";
+        if(mysqli_query($this->con, $query))
+        {
+            $returnQuery = "SELECT * FROM `dates` WHERE `id`='" . $id."'";
+            if($ergebnis = mysqli_query($this->con, $returnQuery));
+                return $ergebnis;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+
+    public function queryDeleteAppointment($id)
+    {
+        $id = mysqli_real_escape_string($this->con, $id);
+        $sql1 = "DELETE FROM `dates` WHERE idAppointment=" . $id;
+        echo $sql1;
+        $temp1=mysqli_query($this->con, $sql1);
+        $sql2 = "DELETE FROM `appointments` WHERE id=" . $id;
+        echo $sql2;
+        $temp2=mysqli_query($this->con, $sql2);
+        if($temp1&&$temp2)
         {
             return 1;
         }
@@ -101,30 +131,13 @@ class db
         }
     }
 
-    public function queryUnbookAppointment($id)
+    public function queryVotingsByAppointment($id)
     {
         $id = mysqli_real_escape_string($this->con, $id);
-        $query = 'UPDATE `dates` SET `nameVonBenutzer`= NULL WHERE `id`="'.$id.'"';
-        if($ergebnis = mysqli_query($this->con, $query))
-        {
-            return 1;
-        }
-        else
-        {
-            return 0;
-        }
-    }
-
-    public function queryIsItBooked($id)
-    {
-        $id = mysqli_real_escape_string($this->con, $id);
-        $query = 'SELECT `nameVonBenutzer` FROM `dates` WHERE `id`="'.$id.'"';
-        if($ergebnis = mysqli_query($this->con, $query))
-        {
+        $query = "SELECT * FROM `dates` INNER JOIN `userdate` ON userdate.idDate=dates.id WHERE dates.idAppointment='" . $id . "'";
+        if ($ergebnis = mysqli_query($this->con, $query)) {
             return $ergebnis;
-        }
-        else
-        {
+        } else {
             return 0;
         }
     }
