@@ -11,14 +11,20 @@
     <title>Test Appointment 1</title>
 </head>
 <body>
+  <!-- Überschrift-->
     <h1>Test Appointment 1</h1>
+    <h2>Write your name and comment in the appropriate box before voting for an appointment</h2>
+    <!-- Div for Buttons -->
     <div class="cont">
+      <div class="Buttondiv2">
         <a href="Index.html">
           <button class="newApp" type="button">Back</button>
         </a>
+      </div>
     </div>
+    <!-- Table for Appointment Details-->
     <div class="Tabelle">
-        <table id="myTableDateAndTime" >
+        <table id="myTableDateAndTime">
             <tr>
               <td><b>Name</b></td>
               <td id="appointmentDateAndTime1"><b></b></td>
@@ -26,6 +32,7 @@
               <td id="appointmentDateAndTime3"><b></b></td>
               <td id="appointmentDateAndTime4"><b></b></td>
               <td id="appointmentDateAndTime5"><b></b></td>
+              <td><b>Kommentare</b></td>
             </tr>
             <tr>
               <td><input id="nameOfUser" type="text" maxlength="20"></td>
@@ -34,9 +41,23 @@
               <td><label class="container"><input id="checkbox3" type="checkbox"><span class="checkmark"></span></label></td>
               <td><label class="container"><input id="checkbox4" type="checkbox"><span class="checkmark"></span></label></td>
               <td><label class="container"><input id="checkbox5" type="checkbox"><span class="checkmark"></span></label></td>
+              <td><input id="commentOfUser" type="text" maxlength="50"></td>
             </tr>
           </table>
           <br>
+    </div>
+    <br>
+    <h2>Previous Votings</h2>
+    <div class="Tabelle">
+        <table id="HistoryTabelle" >
+          <tr>
+            <td><b>Name</b></td>
+            <td><b>Date</b></td>
+            <td><b>Time</b></td>
+            <td><b>Comment</b></td>
+          </tr>
+        </table>
+        <br>
     </div>
 </body>
 </html>
