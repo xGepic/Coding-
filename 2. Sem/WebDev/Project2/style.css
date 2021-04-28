@@ -7,6 +7,10 @@ h1 {
   font-size: 80px;
 }
 
+h2{
+  text-align: center;
+}
+
 .Tabelle {
   display: flex;
   justify-content: center;
@@ -29,8 +33,15 @@ td {
 .Buttondiv {
   margin: 0;
   position: absolute;
-  top: 40%;
-  left: 35%;
+  top: 43%;
+  left: 40%;
+}
+
+.Buttondiv2 {
+  margin: 0;
+  position: absolute;
+  top: 43%;
+  left: 48%;
 }
 
 .newApp {
