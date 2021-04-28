@@ -18,7 +18,30 @@ World::World() {
 
 World::~World() {
 
-	
+
+}
+
+void World::getMenu() {
+
+	cout << "--| DeepMiner 1.0 by Stefan Simanek |--" << endl << endl;
+	cout << "Compete against the computer and collect more points from the world than it does!" << endl << endl;
+	cout << "BOT 1 | Test" << endl;
+	cout << "BOT 2 | Test" << endl;
+	cout << "BOT 3 | Test" << endl;
+	cout << "___________________________________" << endl << endl;
+}
+
+void World::beginMenu() {
+
+	cout << "Let the Game begin!" << endl;
+	cout << "___________________" << endl << endl;
+	printWorld();
+}
+
+void World::errorMsg() {
+
+	cout << endl;
+	cout << "[Error] That is not possible!" << endl;
 }
 
 void World::whichPlain() {
@@ -42,19 +65,32 @@ void World::whichPlain() {
 
 void World::printLayer(int k) {
 
+	cout << endl << endl << "Here is Layer Number " << k << ":" << endl;
+
 	for (int i = 0; i < sizeX; i++) {
 		for (int j = 0; j < sizeY; j++) {
 
-			cout << worldArray[i][j][k] << " ";
+			if (worldArray[i][j][k] == 88) {
+				cout << "X" << " ";
+			}
+			else if (worldArray[i][j][k] == 89) {
+				cout << "Y" << " ";
+			}
+			else {
+				cout << worldArray[i][j][k] << " ";
+			}
 		}
 		cout << endl;
 	}
 }
 
-void World::printWorld(int n) {
+void World::printWorld() {
 
-	if (n < 10) {
-		cout << "Layer " << n + 1 << ": " << endl;
+	int n = 0;
+	cout << endl << "Here is your World!" << endl << endl;
+
+	while (n < 10) {
+		cout << "Layer " << n << ": " << endl;
 		for (int i = 0; i < sizeX; i++) {
 			for (int j = 0; j < sizeY; j++) {
 
@@ -63,6 +99,158 @@ void World::printWorld(int n) {
 			cout << endl;
 		}
 		cout << endl;
+		n++;
 	}
-	printWorld(n + 1);
+}
+
+void World::printStats(Bot* B, int n) {
+
+	if (n == 0) {
+		cout << "[SCORE] Player 1: " << B->getScore() << " Points" << endl;
+	}
+	else {
+		cout << "[SCORE] Robot:    " << B->getScore() << " Points" << endl;
+	}
+}
+
+Bot* World::chooseBot() {
+
+	int temp;
+
+	while (true) {
+
+		cout << "Choose A Robot! | BotOne(1) - BotTwo(2) - BotThree(3)";
+		cin >> temp;
+
+		if ((temp < 1) || (temp > 3)) {
+
+			cout << endl << "Error!" << endl << endl;
+		}
+		else {
+
+			if (temp == 1) {
+
+				cout << endl << "Player 1 chose the BotOne!" << endl << endl << endl;
+				return new BotOne();
+			}
+			if (temp == 2) {
+
+				cout << endl << "Player 1 chose the BotTwo!" << endl << endl << endl;
+				return new BotTwo();
+			}
+			if (temp == 3) {
+
+				cout << endl << "Player 1 chose the BotThree!" << endl << endl << endl;
+				return new BotThree();
+			}
+		}
+	}
+}
+
+Bot* World::chooseRobot() {
+
+	int temp = rand() % 3 + 1;
+
+	if (temp == 1) {
+
+		cout << "Bot chose BotOne!" << endl << endl << endl;
+		return new BotOne();
+	}
+	if (temp == 2) {
+
+		cout << "Bot chose BotTwo!" << endl << endl << endl;
+		return new BotTwo();
+	}
+	else {
+
+		cout << "Bot chose BotThree!" << endl << endl << endl;
+		return new BotThree();
+	}
+}
+
+void World::setPositionPlayer(Bot* B) {
+
+	worldArray[B->getxPlayerPos()][B->getyPlayerPos()][B->getzValue()] = 'X';
+}
+
+void World::setPositionRobot(Bot* B) {
+
+	worldArray[B->getxRobotPos()][B->getyRobotPos()][B->getzValue()] = 'Y';
+}
+
+void World::chooseMove(Bot* B) {
+
+	char move;
+
+	while (true) {
+
+		cout << endl << "Where would you like to go?";
+		cin >> move;
+
+		if ((move != 'w') && (move != 'a') && (move != 's') && (move != 'd')) {
+			errorMsg();
+		}
+		else {
+			break;
+		}
+	}
+
+	if (move == 'w') {
+
+		if (B->getxPlayerPos() - 1 < 0) {
+			errorMsg();
+			return;
+		}
+		B->setxPlayerPos(-1);
+		cout << "You went north!" << endl;
+		system("CLS");
+		//mine
+		//move bot
+	}
+	if (move == 'a') {
+
+		if (B->getyPlayerPos() - 1 < 0) {
+			errorMsg();
+			return;
+		}
+
+	}
+	if (move == 's') {
+
+		if (B->getxPlayerPos() + 1 > 4) {
+			errorMsg();
+			return;
+		}
+
+	}
+	if (move == 'd') {
+
+		if (B->getyPlayerPos() + 1 > 4) {
+			errorMsg();
+			return;
+		}
+
+	}
+}
+
+void World::startGame(Bot* Player1, Bot* Robot) {
+
+	cout << "Loading...";
+	this_thread::sleep_for(chrono::seconds(4));
+	system("CLS");
+
+	beginMenu();
+	setPositionPlayer(Player1);
+	setPositionRobot(Robot);
+
+	while (true) {
+
+		printStats(Player1, 0);
+		printStats(Robot, 1);
+		printLayer(9);
+
+		chooseMove(Player1);
+
+		break;
+	}
 }
