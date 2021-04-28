@@ -1,7 +1,7 @@
 #pragma once
 #include <iostream>
-#include <stdlib.h>
-#include <algorithm>
+#include <thread>
+#include "Bot.h"
 
 using namespace std;
 
@@ -15,9 +15,24 @@ private:
 	int sizeZ;
 
 public:
+
 	World();
 	~World();
+
 	void whichPlain();
 	void printLayer(int k);
-	void printWorld(int n);
+	void printWorld();
+
+	void getMenu();
+	void beginMenu();
+	void printStats(Bot* B, int n);
+	void errorMsg();
+
+
+	Bot* chooseBot();
+	Bot* chooseRobot();
+	void startGame(Bot* B, Bot* Robot);
+	void setPositionPlayer(Bot* B);
+	void setPositionRobot(Bot* B);
+	void chooseMove(Bot* B);
 };
