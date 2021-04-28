@@ -18,23 +18,24 @@
   <body>
     <h1>Appointment Finder</h1>
     <div class="cont">
+      <!-- Div for the Buttons -->
       <div class="Buttondiv">
         <button id="myBtn" class="newApp">New Appointment</button>
-        <button class="newApp" onclick="deleteRow()">Delete</button>
+        <button class="newApp" onclick="deleteOne()">Delete</button>
         <div id="myModal" class="modal">
           <div class="modal-content">
             <div class="modal-header">
               <h2>New Appointment</h2>
               <span class="close">x</span>
             </div>
+            <!-- Modal -->
             <div class="modal-body">
               <form action="" class="my-form">
-                <!-- to do -->
                 <label for="Title">Title:</label><br />
                 <input type="text" id="title" name="title" /><br />
                 <label for="Location">Location:</label><br />
                 <input type="text" id="location" name="location" /><br />
-                <label for="Duration">Duration:</label><br />
+                <label for="Duration">Duration (in h):</label><br />
                 <input type="text" id="duration" name="duration" /><br />
                 <label for="Information">Information:</label><br />
                 <input type="text" id="information" name="information" /><br />
@@ -72,35 +73,28 @@
                   type="datetime-local"
                   id="appointmentoption5"
                   name="appointmentoption5"
-                /><br/>
-                <input type="button" id="theButton" value="Add">
+                /><br />
+                <input type="button" id="theButton" value="Add" />
               </form>
             </div>
           </div>
         </div>
       </div>
     </div>
+    <!-- Tabelle -->
     <div class="Tabelle">
       <table id="myTableAppointment">
         <tr>
           <td><b>Titel</b></td>
           <td><b>Location</b></td>
-          <td><b>Duration</b></td>
+          <td><b>Duration (in h)</b></td>
           <td><b>Information</b></td>
         </tr>
-        <tr>
-          
-        </tr>
-        <tr>
-          
-        </tr>
-        <tr>
-          
-        </tr>
       </table>
-      <br/>
+      <br />
     </div>
   </body>
+  <!-- Footer -->
   <footer>
     <div class="cont"></div>
     <p>
