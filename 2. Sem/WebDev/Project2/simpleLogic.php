@@ -18,29 +18,24 @@ class SimpleLogic
             case "queryAppointments":
                 $res = $this->dh->queryAppointments();
                 break;
-
             case "queryDatesByAppointment":
                 $res = $this->dh->queryDatesByAppointment($param);
                 break;
-
             case "queryPostAppointment":
                 $res = $this->dh->queryPostAppointment($param);
                 break;
-
             case "queryPostDateTimeArray":
                 $res = $this->dh->queryPostDateTimeArray($param);
                 break;
-    
             case "queryBookAppointment":
                 $res = $this->dh->queryBookAppointment($param);
                 break;
-            case "queryUnbookAppointment":
-                $res = $this->dh->queryUnbookAppointment($param);
+            case "queryDeleteAppointment":
+                $res = $this->dh->queryDeleteAppointment($param);
                 break;
-            case "queryIsItBooked":
-                $res = $this->dh->queryIsItBooked($param);
+            case "queryVotingsByAppointment":
+                $res = $this->dh->queryVotingsByAppointment($param);
                 break;
-            
             default:
                 $res = null;
                 break;
