@@ -1,4 +1,6 @@
 <?php
+//class for Vote
+//it contains all varaibles as database table
 class Vote {
     public $id;
     public $nameVonBenutzer;
