@@ -1,4 +1,6 @@
 <?php
+//class for DateAndTime
+//it contains all varaibles as database table
 class DateAndTime {
     public $id;
     public $date;
