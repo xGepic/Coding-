@@ -1,4 +1,7 @@
 #pragma once
+#include <iostream>
+#include <algorithm>
+#include <vector>
 
 using namespace std;
 
@@ -18,6 +21,7 @@ public:
 	~Bot();
 
 	int getScore();
+	void addScore(int n);
 	int getzValue();
 
 	int getxPlayerPos();
@@ -30,7 +34,7 @@ public:
 	int getyRobotPos();
 	void setyRobotPos(int pos);
 
-	virtual void mine(int depth[10]) = 0;
+	virtual void mine(vector<int> depth) = 0;
 };
 
 class BotOne : public Bot {
@@ -42,7 +46,7 @@ public:
 	BotOne();
 	virtual ~BotOne();
 
-	void mine(int depth[10]);
+	void mine(vector<int> depth);
 };
 
 class BotTwo : public Bot {
@@ -54,7 +58,7 @@ public:
 	BotTwo();
 	virtual ~BotTwo();
 
-	void mine(int depth[10]);
+	void mine(vector<int> depth);
 };
 
 class BotThree : public Bot {
@@ -66,5 +70,5 @@ public:
 	BotThree();
 	virtual ~BotThree();
 
-	void mine(int depth[10]);
+	void mine(vector<int> depth);
 };
