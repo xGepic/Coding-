@@ -1,6 +1,7 @@
 <?php
 include("db/dataHandler.php");
-
+//this class handles requests by passing method and parameters
+//for each function in dataHandler.php there is case in switch
 class SimpleLogic
 {
 
