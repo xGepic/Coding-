@@ -63,3 +63,9 @@ void Bot::setyRobotPos(int pos) {
 
 	yRobotPos = pos;
 }
+
+void Bot::addScore(int n) {
+
+	cout << "+" << n << " Points!" << endl;
+	score += n;
+}
