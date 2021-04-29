@@ -181,6 +181,7 @@ void World::setPositionRobot(Bot* B) {
 void World::chooseMove(Bot* B) {
 
 	char move;
+	vector<int> temp;
 
 	while (true) {
 
@@ -201,11 +202,14 @@ void World::chooseMove(Bot* B) {
 			errorMsg();
 			return;
 		}
+		worldArray[B->getxPlayerPos()][B->getyPlayerPos()][B->getzValue()] = 0;
 		B->setxPlayerPos(-1);
-		cout << "You went north!" << endl;
 		system("CLS");
-		//mine
-		//move bot
+		setPositionPlayer(B);
+		for (int i = 9; i > 0; i--) {
+			temp.push_back(worldArray[B->getxPlayerPos()][B->getyPlayerPos()][i]);
+		}
+		B->mine(temp);
 	}
 	if (move == 'a') {
 
@@ -213,7 +217,14 @@ void World::chooseMove(Bot* B) {
 			errorMsg();
 			return;
 		}
-
+		worldArray[B->getxPlayerPos()][B->getyPlayerPos()][B->getzValue()] = 0;
+		B->setyPlayerPos(-1);
+		system("CLS");
+		setPositionPlayer(B);
+		for (int i = 9; i > 0; i--) {
+			temp.push_back(worldArray[B->getxPlayerPos()][B->getyPlayerPos()][i]);
+		}
+		B->mine(temp);
 	}
 	if (move == 's') {
 
@@ -221,7 +232,14 @@ void World::chooseMove(Bot* B) {
 			errorMsg();
 			return;
 		}
-
+		worldArray[B->getxPlayerPos()][B->getyPlayerPos()][B->getzValue()] = 0;
+		B->setxPlayerPos(1);
+		system("CLS");
+		setPositionPlayer(B);
+		for (int i = 9; i > 0; i--) {
+			temp.push_back(worldArray[B->getxPlayerPos()][B->getyPlayerPos()][i]);
+		}
+		B->mine(temp);
 	}
 	if (move == 'd') {
 
@@ -229,14 +247,21 @@ void World::chooseMove(Bot* B) {
 			errorMsg();
 			return;
 		}
-
+		worldArray[B->getxPlayerPos()][B->getyPlayerPos()][B->getzValue()] = 0;
+		B->setyPlayerPos(1);
+		system("CLS");
+		setPositionPlayer(B);
+		for (int i = 9; i > 0; i--) {
+			temp.push_back(worldArray[B->getxPlayerPos()][B->getyPlayerPos()][i]);
+		}
+		B->mine(temp);
 	}
 }
 
 void World::startGame(Bot* Player1, Bot* Robot) {
 
 	cout << "Loading...";
-	this_thread::sleep_for(chrono::seconds(4));
+	this_thread::sleep_for(chrono::seconds(3));
 	system("CLS");
 
 	beginMenu();
@@ -251,6 +276,5 @@ void World::startGame(Bot* Player1, Bot* Robot) {
 
 		chooseMove(Player1);
 
-		break;
 	}
 }
