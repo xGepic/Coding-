@@ -9,7 +9,9 @@ BotOne::~BotOne() {
 	delete this;
 }
 
-void BotOne::mine(int depth[10]) {
+void BotOne::mine(vector<int> depth) {
 
-
+	sort(depth.begin(), depth.end());
+	depth.pop_back();
+	addScore(depth.back());
 }
