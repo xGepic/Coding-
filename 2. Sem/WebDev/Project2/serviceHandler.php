@@ -1,6 +1,7 @@
 <?php
 include("businesslogic/simpleLogic.php");
-
+//serviceHandler.php is the one function which is called through ajax calls
+//is takes parameters and method by GET and then calls simpleLogic.php so that it can call appropriate request
 $param = "";
 $method = "";
 
@@ -16,7 +17,7 @@ if ($result == null) {
     response("GET", 200, $result);
 }
 
-
+//if everything is okay then is data passed as JSON
 function response($method, $httpStatus, $data)
 {
     header('Content-Type: application/json');
