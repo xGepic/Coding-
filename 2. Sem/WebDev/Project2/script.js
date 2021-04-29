@@ -30,14 +30,17 @@ window.onclick = function (event) {
 };
 
 //Funtion to add a new Appointment to the Table
-function addAppointmentTableRow(id, title, location, duration, information) {
+function addAppointmentTableRow(id, title, location, durationDate, durationTime, information) {
   var link = document.createElement("a");
   var linkUrl = "Testapp.html?id=" + id;
   link.setAttribute("href", linkUrl);
   link.setAttribute("id", id);
+  var now=new Date();
+  var durationDateSplit= durationDate.split("-");
+  var durationTimeSplit= durationTime.split(":");
+  var durationObject= new Date(durationDateSplit[0],durationDateSplit[1]-1,durationDateSplit[2],durationTimeSplit[0],durationTimeSplit[1],durationTimeSplit[2]);
   var linkText = document.createTextNode(title);
   link.appendChild(linkText);
-
   var table = document.getElementById("myTableAppointment");
   var rowCount = table.rows.length;
   var row = table.insertRow(rowCount);
@@ -47,7 +50,12 @@ function addAppointmentTableRow(id, title, location, duration, information) {
   var cell4 = row.insertCell(3);
   cell1.appendChild(link);
   cell2.innerHTML = location;
-  cell3.innerHTML = duration;
+  cell3.innerHTML = durationDate+" "+durationTime;
+  if(durationObject<now)
+  {
+    link.removeAttribute("href");
+    cell3.innerHTML += " - EXPIRED";
+  }
   cell4.innerHTML = information;
 }
 
@@ -93,7 +101,8 @@ function loadAppointments() {
           response[i].id,
           response[i].titel,
           response[i].ort,
-          response[i].duration,
+          response[i].durationDate,
+          response[i].durationTime,
           response[i].info
         );
       }
@@ -111,13 +120,14 @@ function createNewAppointment(param) {
     dataType: "json",
     async: false,
     success: function (response) {
-      lastAddedAppointmentId = response;
+      lastAddedAppointmentId = response.id;
       addAppointmentTableRow(
-        response,
-        $("#title").val(),
-        $("#location").val(),
-        $("#duration").val(),
-        $("#information").val()
+        response.id,
+        response.titel,
+        response.ort,
+        response.durationDate,
+        response.durationTime,
+        response.info
       );
     },
   });
