@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <thread>
+#include <vector>
 #include "Bot.h"
 
 using namespace std;
