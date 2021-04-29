@@ -93,7 +93,7 @@ function addDateAndTimeTableRow(response) {
     }
   }
 }
-
+//function which adds rows to history table
 function addHistoryTableRow(response) {
   var name = response.nameVonBenutzer;
   var date = response.date;
@@ -135,7 +135,7 @@ function loadDateAndTime(param) {
     },
   });
 }
-
+//function which loads all previous votings and then adds them all to the history table
 function loadHistoryTable(param)
 {
     $.ajax({
