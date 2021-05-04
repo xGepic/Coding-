@@ -25,9 +25,9 @@ void World::getMenu() {
 
 	cout << "--| DeepMiner 1.0 by Stefan Simanek |--" << endl << endl;
 	cout << "Compete against the computer and collect more points from the world than it does!" << endl << endl;
-	cout << "BOT 1 | Test" << endl;
-	cout << "BOT 2 | Test" << endl;
-	cout << "BOT 3 | Test" << endl;
+	cout << "BOT 1 | Mines the Highest Value it can find" << endl;
+	cout << "BOT 2 | Mines the value of its coordinates as well as the next two values below" << endl;
+	cout << "BOT 3 | Mines the deepest 2 Values from the Bottom of the World" << endl;
 	cout << "___________________________________" << endl << endl;
 }
 
@@ -178,7 +178,7 @@ void World::setPositionRobot(Bot* B) {
 	worldArray[B->getxRobotPos()][B->getyRobotPos()][B->getzValue()] = 'Y';
 }
 
-void World::chooseMove(Bot* B) {
+void World::chooseMovePlayer(Bot* B) {
 
 	char move;
 	vector<int> temp;
@@ -258,7 +258,31 @@ void World::chooseMove(Bot* B) {
 	}
 }
 
+void World::chooseMoveRobot(Bot* B) {
+
+	int temp = rand() % 4 + 1;
+
+	if (temp == 1) {
+
+
+	}
+	if (temp == 2) {
+
+
+	}
+	if (temp == 3) {
+
+
+	}
+	if (temp == 4) {
+
+
+	}
+}
+
 void World::startGame(Bot* Player1, Bot* Robot) {
+
+	int temp = 1;
 
 	cout << "Loading...";
 	this_thread::sleep_for(chrono::seconds(3));
@@ -274,7 +298,41 @@ void World::startGame(Bot* Player1, Bot* Robot) {
 		printStats(Robot, 1);
 		printLayer(9);
 
-		chooseMove(Player1);
+		chooseMovePlayer(Player1);
+		temp = gameOver(Player1->getScore(), 1);
+		if (temp == 0) {
 
+			break;
+		}
+		chooseMoveRobot(Robot);
+		temp = gameOver(Robot->getScore(), 0);
+		if (temp == 0) {
+
+			break;
+		}
+	}
+}
+
+int World::gameOver(int points, int w) {
+
+	if (points >= 50) {
+
+		cout << "Game Over!" << endl;
+
+		if (w == 1) {
+
+			cout << "Player 1 Won!" << endl;
+			return 0;
+		}
+		else {
+
+			cout << "Bot Won!" << endl;
+			return 0;
+		}
+		return 0;
+	}
+	else {
+
+		return 1;
 	}
 }
