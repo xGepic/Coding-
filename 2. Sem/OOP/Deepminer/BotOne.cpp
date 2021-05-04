@@ -11,7 +11,10 @@ BotOne::~BotOne() {
 
 void BotOne::mine(vector<int> depth) {
 
+	int value = 0;
+
 	sort(depth.begin(), depth.end());
 	depth.pop_back();
-	addScore(depth.back());
+	value = depth.back();
+	addScore(value);
 }
