@@ -35,5 +35,8 @@ public:
 	void startGame(Bot* B, Bot* Robot);
 	void setPositionPlayer(Bot* B);
 	void setPositionRobot(Bot* B);
-	void chooseMove(Bot* B);
+	void chooseMovePlayer(Bot* B);
+	void chooseMoveRobot(Bot* B);
+
+	int gameOver(int lp, int w);
 };
