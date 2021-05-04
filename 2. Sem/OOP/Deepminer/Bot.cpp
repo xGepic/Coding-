@@ -52,7 +52,7 @@ int Bot::getxRobotPos() {
 
 void Bot::setxRobotPos(int pos) {
 
-	xRobotPos = pos;
+	xRobotPos += pos;
 }
 
 int Bot::getyRobotPos() {
@@ -61,7 +61,7 @@ int Bot::getyRobotPos() {
 }
 void Bot::setyRobotPos(int pos) {
 
-	yRobotPos = pos;
+	yRobotPos += pos;
 }
 
 void Bot::addScore(int n) {
