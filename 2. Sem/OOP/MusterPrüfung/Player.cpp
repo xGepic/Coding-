@@ -44,22 +44,14 @@ void Player::rest() {
 	attackBonus = 0;
 }
 
-bool Player::operator >(Player* P) {
+bool Player::operator>(Player* P) {
 
-	Player* temp = this;
-	int firstValue = temp->getPoints();
-	int secondValue = P->getPoints();
+	if (P == nullptr) {
 
-	if (firstValue == NULL) {
 		throw invalid_argument("Input Failed!");
 	}
 
-	if (firstValue > secondValue) {
-		return true;
-	}
-	else {
-		return false;
-	}
+	return points > P->points;
 }
 
 PlayerA::PlayerA(string n) {
@@ -74,13 +66,13 @@ PlayerA::PlayerA(string n) {
 
 bool PlayerA::attack(Player* opponent) {
 
-	int temp = rand() % 4 + 1;
-	attackBonus += temp;
-
-	if (opponent == NULL) {
+	if (opponent == nullptr) {
 
 		throw invalid_argument("Input Failed!");
 	}
+
+	int temp = rand() % 4 + 1;
+	attackBonus += temp;
 
 	double tmpAttackValue = attackBonus + attackPoints * opponent->beAttacked();
 
@@ -96,12 +88,11 @@ bool PlayerA::attack(Player* opponent) {
 
 double PlayerA::beAttacked() {
 
-	if ((stamina - 3) < 0) {
+	stamina -= 3;
 
-	}
-	else {
+	if (stamina < 0) {
 
-		stamina -= 3;
+		stamina = 0;
 	}
 	if (stamina % 7 == 0) {
 
@@ -133,24 +124,18 @@ PlayerB::PlayerB(string n) {
 }
 
 bool PlayerB::attack(Player* opponent) {
-
-	int temp = rand() % 10 + 1;
-
+	
 	if (opponent == NULL) {
 
 		throw invalid_argument("Input Failed!");
 	}
 
-	if (temp < 4) {
+	if (rand() % 100 < 30) {
 
-		if (confused == false) {
-			confused = true;
-		}
-		if (confused == true) {
-			confused = false;
-		}
+		confused = !confused;
 	}
-	if (confused == false) {
+
+	if (!confused) {
 
 		attackBonus += static_cast<int>((opponent->beAttacked()) * 5);
 
@@ -166,14 +151,12 @@ bool PlayerB::attack(Player* opponent) {
 			return false;
 		}
 	}
-	else {
 		return false;
-	}
 }
 
 double PlayerB::beAttacked() {
 
-	if (confused == true) {
+	if (confused) {
 
 		stamina -= stamina / 5;
 	}
