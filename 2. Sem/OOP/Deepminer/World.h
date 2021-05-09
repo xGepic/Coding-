@@ -20,6 +20,8 @@ public:
 	World();
 	~World();
 
+	void generate();
+
 	void whichPlain();
 	void printLayer(int k);
 	void printWorld();
