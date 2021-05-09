@@ -6,6 +6,16 @@ World::World() {
 	sizeY = 5;
 	sizeZ = 10;
 
+	generate();
+}
+
+World::~World() {
+
+
+}
+
+void World::generate() {
+
 	for (int i = 0; i < sizeX; i++) {
 		for (int j = 0; j < sizeY; j++) {
 			for (int k = 0; k < sizeZ; k++) {
@@ -14,11 +24,6 @@ World::World() {
 			}
 		}
 	}
-}
-
-World::~World() {
-
-
 }
 
 void World::getMenu() {
@@ -55,6 +60,7 @@ void World::whichPlain() {
 		cout << endl;
 
 		if ((k < 0) || (k > 9)) {
+
 			cout << "[ERROR] The World only has 10 Plains! (0-9)" << endl << endl << endl;
 		}
 		else {
@@ -68,15 +74,19 @@ void World::printLayer(int k) {
 	cout << endl << endl << "Here is Layer Number " << k << ":" << endl;
 
 	for (int i = 0; i < sizeX; i++) {
+
 		for (int j = 0; j < sizeY; j++) {
 
 			if (worldArray[i][j][k] == 88) {
+
 				cout << "X" << " ";
 			}
 			else if (worldArray[i][j][k] == 89) {
+
 				cout << "Y" << " ";
 			}
 			else {
+
 				cout << worldArray[i][j][k] << " ";
 			}
 		}
@@ -87,11 +97,14 @@ void World::printLayer(int k) {
 void World::printWorld() {
 
 	int n = 0;
+
 	cout << endl << "Here is your World!" << endl << endl;
 
 	while (n < 10) {
+
 		cout << "Layer " << n << ": " << endl;
 		for (int i = 0; i < sizeX; i++) {
+
 			for (int j = 0; j < sizeY; j++) {
 
 				cout << worldArray[i][j][n] << " ";
@@ -106,9 +119,11 @@ void World::printWorld() {
 void World::printStats(Bot* B, int n) {
 
 	if (n == 0) {
+
 		cout << "[SCORE] Player 1: " << B->getScore() << " Points" << endl;
 	}
 	else {
+
 		cout << "[SCORE] Robot:    " << B->getScore() << " Points" << endl;
 	}
 }
@@ -147,35 +162,10 @@ Bot* World::chooseBot() {
 	}
 }
 
-Bot* World::chooseRobot() {
-
-	int temp = rand() % 3 + 1;
-
-	if (temp == 1) {
-
-		cout << "Bot chose BotOne!" << endl << endl << endl;
-		return new BotOne();
-	}
-	if (temp == 2) {
-
-		cout << "Bot chose BotTwo!" << endl << endl << endl;
-		return new BotTwo();
-	}
-	else {
-
-		cout << "Bot chose BotThree!" << endl << endl << endl;
-		return new BotThree();
-	}
-}
 
 void World::setPositionPlayer(Bot* B) {
 
 	worldArray[B->getxPlayerPos()][B->getyPlayerPos()][B->getzValue()] = 'X';
-}
-
-void World::setPositionRobot(Bot* B) {
-
-	worldArray[B->getxRobotPos()][B->getyRobotPos()][B->getzValue()] = 'Y';
 }
 
 void World::chooseMovePlayer(Bot* B) {
@@ -189,9 +179,11 @@ void World::chooseMovePlayer(Bot* B) {
 		cin >> move;
 
 		if ((move != 'w') && (move != 'a') && (move != 's') && (move != 'd')) {
+
 			errorMsg();
 		}
 		else {
+
 			break;
 		}
 	}
@@ -199,14 +191,19 @@ void World::chooseMovePlayer(Bot* B) {
 	if (move == 'w') {
 
 		if (B->getxPlayerPos() - 1 < 0) {
+
 			errorMsg();
 			return;
 		}
-		worldArray[B->getxPlayerPos()][B->getyPlayerPos()][B->getzValue()] = 0;
+		for (int j = 9; j > 0; j--) {
+
+			worldArray[B->getxPlayerPos()][B->getyPlayerPos()][j] = 0;
+		}
 		B->setxPlayerPos(-1);
 		system("CLS");
 		setPositionPlayer(B);
 		for (int i = 9; i > 0; i--) {
+
 			temp.push_back(worldArray[B->getxPlayerPos()][B->getyPlayerPos()][i]);
 		}
 		B->mine(temp);
@@ -214,14 +211,19 @@ void World::chooseMovePlayer(Bot* B) {
 	if (move == 'a') {
 
 		if (B->getyPlayerPos() - 1 < 0) {
+
 			errorMsg();
 			return;
 		}
-		worldArray[B->getxPlayerPos()][B->getyPlayerPos()][B->getzValue()] = 0;
+		for (int j = 9; j > 0; j--) {
+
+			worldArray[B->getxPlayerPos()][B->getyPlayerPos()][j] = 0;
+		}
 		B->setyPlayerPos(-1);
 		system("CLS");
 		setPositionPlayer(B);
 		for (int i = 9; i > 0; i--) {
+
 			temp.push_back(worldArray[B->getxPlayerPos()][B->getyPlayerPos()][i]);
 		}
 		B->mine(temp);
@@ -229,14 +231,19 @@ void World::chooseMovePlayer(Bot* B) {
 	if (move == 's') {
 
 		if (B->getxPlayerPos() + 1 > 4) {
+
 			errorMsg();
 			return;
 		}
-		worldArray[B->getxPlayerPos()][B->getyPlayerPos()][B->getzValue()] = 0;
+		for (int j = 9; j > 0; j--) {
+
+			worldArray[B->getxPlayerPos()][B->getyPlayerPos()][j] = 0;
+		}
 		B->setxPlayerPos(1);
 		system("CLS");
 		setPositionPlayer(B);
 		for (int i = 9; i > 0; i--) {
+
 			temp.push_back(worldArray[B->getxPlayerPos()][B->getyPlayerPos()][i]);
 		}
 		B->mine(temp);
@@ -244,80 +251,22 @@ void World::chooseMovePlayer(Bot* B) {
 	if (move == 'd') {
 
 		if (B->getyPlayerPos() + 1 > 4) {
+
 			errorMsg();
 			return;
 		}
-		worldArray[B->getxPlayerPos()][B->getyPlayerPos()][B->getzValue()] = 0;
+		for (int j = 9; j > 0; j--) {
+
+			worldArray[B->getxPlayerPos()][B->getyPlayerPos()][j] = 0;
+		}
 		B->setyPlayerPos(1);
 		system("CLS");
 		setPositionPlayer(B);
 		for (int i = 9; i > 0; i--) {
+
 			temp.push_back(worldArray[B->getxPlayerPos()][B->getyPlayerPos()][i]);
 		}
 		B->mine(temp);
-	}
-}
-
-void World::chooseMoveRobot(Bot* B) {
-
-	int temp = rand() % 4 + 1;
-	vector<int> temp2;
-
-	if (temp == 4) {
-
-		if (B->getyRobotPos() + 1 > 4) {
-			cout << "Fail" << endl;
-			return;
-		}
-		worldArray[B->getxRobotPos()][B->getyRobotPos()][B->getzValue()] = 0;
-		B->setyRobotPos(1);
-		setPositionRobot(B);
-		for (int i = 9; i > 0; i--) {
-			temp2.push_back(worldArray[B->getxRobotPos()][B->getyRobotPos()][i]);
-		}
-		B->mine(temp2);
-	}
-	if (temp == 3) {
-
-		if (B->getxRobotPos() + 1 > 4) {
-			cout << "Fail" << endl;
-			return;
-		}
-		worldArray[B->getxRobotPos()][B->getyRobotPos()][B->getzValue()] = 0;
-		B->setxRobotPos(1);
-		setPositionRobot(B);
-		for (int i = 9; i > 0; i--) {
-			temp2.push_back(worldArray[B->getxRobotPos()][B->getyRobotPos()][i]);
-		}
-		B->mine(temp2);
-	}
-	if (temp == 2) {
-
-		if (B->getyRobotPos() - 1 < 0) {
-			cout << "Fail" << endl;
-			return;
-		}
-		worldArray[B->getxRobotPos()][B->getyRobotPos()][B->getzValue()] = 0;
-		B->setyRobotPos(-1);
-		setPositionRobot(B);
-		for (int i = 9; i > 0; i--) {
-			temp2.push_back(worldArray[B->getxRobotPos()][B->getyRobotPos()][i]);
-		}
-		B->mine(temp2);
-	}
-	if (temp == 1) {
-
-		if (B->getxRobotPos() - 1 < 0) {
-			cout << "Fail" << endl;
-			return;
-		}
-		worldArray[B->getxRobotPos()][B->getyRobotPos()][B->getzValue()] = 0;
-		B->setxRobotPos(-1);
-		setPositionRobot(B);
-		for (int i = 9; i > 0; i--) {
-			temp2.push_back(worldArray[B->getxRobotPos()][B->getyRobotPos()][i]);
-		}
-		B->mine(temp2);
 	}
 }
 
@@ -340,41 +289,19 @@ void World::startGame(Bot* Player1, Bot* Robot) {
 		printLayer(9);
 
 		chooseMovePlayer(Player1);
-		temp = gameOver(Player1->getScore(), 1);
-		if (temp == 0) {
+		if (Player1->getScore() >= 50) {
 
-			break;
+			generate();
+			setPositionPlayer(Player1);
+			setPositionRobot(Robot);
 		}
+
 		chooseMoveRobot(Robot);
-		temp = gameOver(Robot->getScore(), 0);
-		if (temp == 0) {
+		if (Robot->getScore() >= 50) {
 
-			break;
+			generate();
+			setPositionPlayer(Player1);
+			setPositionRobot(Robot);
 		}
-	}
-}
-
-int World::gameOver(int points, int w) {
-
-	if (points >= 50) {
-
-		system("CLS");
-		cout << "Game Over!" << endl;
-
-		if (w == 1) {
-
-			cout << "Player 1 Won!" << endl;
-			return 0;
-		}
-		else {
-
-			cout << "Bot Won!" << endl;
-			return 0;
-		}
-		return 0;
-	}
-	else {
-
-		return 1;
 	}
 }
