@@ -273,6 +273,7 @@ void World::chooseMovePlayer(Bot* B) {
 void World::startGame(Bot* Player1, Bot* Robot) {
 
 	int temp = 1;
+	int gen = 50;
 
 	cout << "Loading...";
 	this_thread::sleep_for(chrono::seconds(3));
@@ -289,19 +290,21 @@ void World::startGame(Bot* Player1, Bot* Robot) {
 		printLayer(9);
 
 		chooseMovePlayer(Player1);
-		if (Player1->getScore() >= 50) {
+		if ((Player1->getScore() - gen) > 0) {
 
 			generate();
 			setPositionPlayer(Player1);
 			setPositionRobot(Robot);
+			gen += 50;
 		}
 
 		chooseMoveRobot(Robot);
-		if (Robot->getScore() >= 50) {
+		if ((Robot->getScore() - gen) > 0) {
 
 			generate();
 			setPositionPlayer(Player1);
 			setPositionRobot(Robot);
+			gen += 50;
 		}
 	}
 }
