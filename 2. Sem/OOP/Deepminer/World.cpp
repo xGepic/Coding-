@@ -273,6 +273,7 @@ void World::chooseMovePlayer(Bot* B) {
 void World::startGame(Bot* Player1, Bot* Robot) {
 
 	int temp = 1;
+	int gameover = 1;
 	int gen = 50;
 
 	cout << "Loading...";
@@ -297,6 +298,11 @@ void World::startGame(Bot* Player1, Bot* Robot) {
 			setPositionRobot(Robot);
 			gen += 50;
 		}
+		gameover = gameOver(Player1->getScore(), 1);
+		if (gameover == 0) {
+
+			break;
+		}
 
 		chooseMoveRobot(Robot);
 		if ((Robot->getScore() - gen) > 0) {
@@ -306,5 +312,37 @@ void World::startGame(Bot* Player1, Bot* Robot) {
 			setPositionRobot(Robot);
 			gen += 50;
 		}
+		gameover = gameOver(Robot->getScore(), 2);
+		if (gameover == 0) {
+
+			break;
+		}
+	}
+}
+
+int World::gameOver(int points, int player) {
+
+	if (points >= 200) {
+
+		cout << "Game Over !" << endl;
+
+		if (player == 1) {
+			
+			cout << "Player 1 won!" << endl;
+			return 0;
+		}
+		if (player == 2) {
+
+			cout << "The Robot won!" << endl;
+			return 0;
+		}
+		else {
+
+			return 1;
+		}
+	}
+	else {
+
+		return 1;
 	}
 }
