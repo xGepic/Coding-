@@ -22,6 +22,7 @@ public:
 
 	int getScore();
 	void addScore(int n);
+	void addExtra(int n);
 	int getzValue();
 
 	int getxPlayerPos();
