@@ -69,3 +69,9 @@ void Bot::addScore(int n) {
 	cout << "+" << n << " Points!" << endl;
 	score += n;
 }
+
+void Bot::addExtra(int n) {
+
+	cout << "+" << n << " ExtraPoints!" << endl;
+	score += n;
+}
