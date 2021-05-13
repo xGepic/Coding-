@@ -1,0 +1,23 @@
+<mat-card>
+  <form>
+    <h2>Username</h2>
+    <mat-form-field appearance="fill">
+      <mat-label>Enter your email</mat-label>
+      <input matInput placeholder="E-Mail" [(ngModel)]="username" name="username" pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}" required>
+      <mat-error>Please enter a valid email!</mat-error>
+    </mat-form-field>
+
+    <h2>Password</h2>
+    <mat-form-field appearance="fill">
+      <mat-label>Enter your password</mat-label>
+      <input matInput [type]="hide ? 'password' : 'text'" placeholder="Password" name="password" [(ngModel)]="password" required/>
+      <mat-error>Please a valid password!</mat-error>
+      <button mat-icon-button type="button" matSuffix (click)="hide = !hide!">
+        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit" (click)="loginFunc()">Login</button>
+
+  </form>
+</mat-card>
