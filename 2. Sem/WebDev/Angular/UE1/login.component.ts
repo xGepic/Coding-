@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -6,35 +7,33 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  email_proto = "test@test.at";
+  password_proto = "12345678";
+  submitted = false;
+  loginForm = new FormGroup({
+      email: new FormControl('',[Validators.required, Validators.email]),
+    password: new FormControl('', [Validators.required])
+  });
 
   hide = true;
-  isLoading = false;
-
   constructor() { }
 
-  ngOnInit(): void {
-
+  ngOnInit(){
   }
-  
-  username: string = '';
-  password: string = '';
-  
-  loginFunc() {
 
-    let emailBool:boolean;
+  onSubmit(){
+    var obj = this.loginForm.value;
 
-    if(this.username == "" && this.password == ""){
-      console.log("Error! - Enter a Password")
-      return
+    if(obj['email'] == this.email_proto && obj['password'] == this.password_proto)
+    {
+      console.log("Login sucessful");
+    }
+    else
+    {
+      console.log("Login Failed");
     }
 
-    emailBool =(/^[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}$/.test(this.username));
-
-    if(emailBool == false){
-      console.log("Login failed!")
-    }
-    if(emailBool == true) {
-      console.log("Login successful!")
-    }
+    this.loginForm.reset();
+    
   }
 }
