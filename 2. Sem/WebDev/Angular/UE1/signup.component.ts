@@ -1,5 +1,5 @@
-import { jsDocComment } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-signup',
@@ -7,49 +7,71 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./signup.component.css']
 })
 
-
 export class SignupComponent implements OnInit {
 
+  registerForm = new FormGroup({
+    email: new FormControl('', [Validators.required, Validators.email]),
+    passwordOne: new FormControl('', [Validators.required, Validators.minLength(8)]),
+    passwordTwo: new FormControl('', [Validators.required, Validators.minLength(8)]),
+    firma: new FormControl({ value: "FH Technikum Wien", disabled: true }),
+    adresse: new FormControl(''),
+    plz: new FormControl('', [Validators.pattern("^[0-9]{4}$")])
+  });
+
+
+  getErrorMessage(parameter) {
+    switch (parameter) {
+      case "email":
+        if (this.registerForm.get('email').hasError('requried')) {
+          return 'Eingabe fehlt';
+        }
+        if (this.registerForm.get('email').hasError('email')) {
+          return 'Ungültige Email';
+        }
+        break;
+      case "password1":
+        if (this.registerForm.get('passwordOne').hasError('required')) {
+          return 'Passwort fehlt';
+        }
+        if (this.registerForm.get('passwordOne').hasError('minlength')) {
+          return 'Passwort muss mindestens 8 Stellen haben';
+        }
+        break;
+      case "password2":
+        if (this.registerForm.get('passwordTwo').hasError('required')) {
+          return 'Passwort fehlt';
+        }
+        if (this.registerForm.get('passwordTwo').hasError('required')) {
+          return 'Passwort muss mindestens 8 Stellen haben';
+        }
+        break;
+      case "plz":
+        if (this.registerForm.get('plz').hasError('pattern')) {
+          return 'Das ist keine PLZ';
+        }
+        break;
+      default:
+        break;
+    }
+  }
+
   hide = true;
-  isLoading = false;
-
-
   constructor() { }
 
   ngOnInit(): void {
-
   }
 
-  userData = {
+  onSubmit() {
 
-    firma: "FH Technikum Wien"
-  }
+    var obj = this.registerForm.value;
 
-  username: string = '';
-  email: string = '';
-  password1: string = '';
-  password2: string = '';
-  strasse: string = '';
-  stadt: string = '';
-  zip: string = '';
+    if (obj['passwordOne'] != obj['passwordTwo']) {
 
-  signupFunc() {
-
-    if(this.username == "" || this.email == "" || this.password1 == "" || this.password2 == ""){
-      console.log("Error! - Fill out all mandatory fields!")
-      return
+      alert("Passwörter stimmen nicht überein")
     }
-
-    if (this.password1 !== this.password2) {
-      console.log("Error! - Password1 and Password2 are not identical!")
-    }
-    
-    if (this.password1 == this.password2) {
-      if (this.password1.length < 8 || this.password2.length < 8) {
-        console.log("Error! - Password too short!")
-        return
-      }
-      console.log("Success!")
+    else {
+      
+      this.registerForm.reset();
     }
   }
 }
