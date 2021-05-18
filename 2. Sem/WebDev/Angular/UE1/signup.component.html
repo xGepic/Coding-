@@ -1,58 +1,39 @@
-<mat-card>
-    <form>
-        <h2>Userdata</h2>
-
-        <mat-form-field appearance="fill">
-            <mat-label>Username</mat-label>
-            <input matInput type="text" placeholder="Username" name="username" [(ngModel)]="username" required/>
+<mat-card class="example-card" >
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <mat-form-field  class="my-email">
+            <mat-label>Email eingeben</mat-label>
+            <input matInput type="email" placeholder="E-Mail" formControlName="email" required/>
+            <mat-error *ngIf="registerForm.get('email').invalid">{{getErrorMessage("email")}}</mat-error>
         </mat-form-field>
-
-        <mat-form-field appearance="fill">
-            <mat-label>Enter your email</mat-label>
-            <input matInput type="email" placeholder="E-Mail" name="email" [(ngModel)]="email" pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}" required/>
-            <mat-error>Please enter a valid email</mat-error>
-        </mat-form-field>
-
-        <mat-form-field appearance="fill">
-            <mat-label>Enter your password</mat-label>
-            <input matInput [type]="hide ? 'password' : 'text'" placeholder="Password" name="pw1" [(ngModel)]="password1" required/>
-            <button mat-icon-button type="button" matSuffix (click)="hide = !hide!">
+        <mat-form-field>
+            <mat-label>Passwort eingeben</mat-label>
+            <input matInput [type]="hide ? 'password' : 'text'" placeholder="Password" formControlName="passwordOne" required/>
+            <mat-error *ngIf="registerForm.get('passwordOne').invalid">{{getErrorMessage("password1")}}</mat-error>
+            <button mat-icon-button type="button" matSuffix (click)="hide = !hide">
                 <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
             </button>
         </mat-form-field>
-
-        <mat-form-field appearance="fill">
-            <mat-label>Confirm Password</mat-label>
-            <input matInput [type]="hide ? 'password' : 'text'" placeholder="Confirm Password" name="pw2" [(ngModel)]="password2" required/>
-            <button mat-icon-button type="button" matSuffix (click)="hide = !hide!">
+        <mat-form-field>
+            <mat-label>Passwort erneut eingeben</mat-label>
+            <input matInput [type]="hide ? 'password' : 'text'" placeholder="Password again" formControlName="passwordTwo" required/>
+            <mat-error *ngIf="registerForm.get('passwordTwo').invalid">{{getErrorMessage("password2")}}</mat-error>
+            <button mat-icon-button type="button" matSuffix (click)="hide = !hide">
                 <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
             </button>
         </mat-form-field>
-
-        <h2>Registrierung</h2>
-
-        <mat-form-field appearance="fill">
+        <mat-form-field>
             <mat-label>Firma</mat-label>
-            <input matInput type="text" name="firma" [(ngModel)]="userData.firma" readonly="readonly">
+            <input matInput type="text" formControlName="firma"/>
         </mat-form-field>
-
-        <h3>Adresse</h3>
-
-        <mat-form-field appearance="fill">
-            <mat-label>Straße</mat-label>
-            <input matInput type="text" placeholder="Straße" name="straße" [(ngModel)]="strasse"/>
+        <mat-form-field>
+            <mat-label>Adresse</mat-label>
+            <textarea matInput formControlName="adresse"></textarea>
         </mat-form-field>
-
-        <mat-form-field appearance="fill">
-            <mat-label>Stadt</mat-label>
-            <input matInput type="text" placeholder="Stadt" name="stadt" [(ngModel)]="stadt"/>
+        <mat-form-field>
+            <mat-label>PLZ</mat-label>
+            <input matInput type="text" formControlName="plz"/>
+            <mat-error *ngIf="registerForm.get('plz').invalid">{{getErrorMessage("plz")}}</mat-error>
         </mat-form-field>
-
-        <mat-form-field appearance="fill">
-            <mat-label>Postleitzahl</mat-label>
-            <input matInput type="text" placeholder="Postleitzahl" maxlength="4" onkeypress='return event.charCode >= 48 && event.charCode <= 57' name="zip" [(ngModel)]="zip"/>
-        </mat-form-field>
-
-        <button mat-raised-button color="primary" type="submit" (click)="signupFunc()">SignUp</button>
+        <button mat-raised-button color="primary" type="submit">Registrieren</button>
     </form>
 </mat-card>
