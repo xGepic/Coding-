@@ -16,6 +16,12 @@ public:
 	hacker(),
 	~hacker();
 
+	int getAttackPoints();
+	int getLifePoints();
+	int getScore();
+
+	void changeScore(int x);
+	void changeAttackPoints(int x);
 	void changeLifePoints(int x);
 
 	void attack(int whichZone);
