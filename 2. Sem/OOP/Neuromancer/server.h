@@ -1,5 +1,4 @@
 #pragma once
-#include <algorithm>
 #include "hacker.h"
 
 using namespace std;
@@ -8,18 +7,29 @@ class server{
 
 private:
 	int lifePoints;
+	int defensePoints;
+	int pressureValue;
 
 public:
 	server();
 	virtual ~server();
+
+	int getDefensePoints();
+	int getPressureValue();
+
+	void changeLifePoints(int x);
+	void changeDefensePoints(int x);
+	void changePressureValue(int x);
+
+	void setZero();
+
 	virtual void beAttacked() = 0;
 };
 
 class defenseZone1 : public server {
 
 private:
-	int defensePoints;
-	int pressureValue;
+
 
 public:
 	defenseZone1();
@@ -30,8 +40,7 @@ public:
 class defenseZone2 : public server {
 
 private:
-	int defensePoints;
-	int pressureValue;
+
 
 public:
 	defenseZone2();
@@ -42,8 +51,7 @@ public:
 class defenseZone3 : public server {
 
 private:
-	int defensePoints;
-	int pressureValue;
+
 
 public:
 	defenseZone3();
@@ -54,8 +62,7 @@ public:
 class defenseZone4 : public server {
 
 private:
-	int defensePoints;
-	int pressureValue;
+
 
 public:
 	defenseZone4();
@@ -66,8 +73,7 @@ public:
 class defenseZone5 : public server {
 
 private:
-	int defensePoints;
-	int pressureValue;
+
 
 public:
 	defenseZone5();
