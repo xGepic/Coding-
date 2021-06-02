@@ -14,7 +14,9 @@ int rng() {
 }
 
 int main() {
-
+	
+	cout << "--| Neuromancer 1.0 by Stefan Simanek |--" << endl << endl;
+	
 	srand((unsigned int)time(NULL));
 	auto startTime = chrono::steady_clock::now();
 
