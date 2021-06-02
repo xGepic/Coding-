@@ -23,6 +23,8 @@ public:
 	void changeScore(int x);
 	void changeAttackPoints(int x);
 	void changeLifePoints(int x);
-
+	
+	void printStatus();
+	
 	void attack(int whichZone);
 };
