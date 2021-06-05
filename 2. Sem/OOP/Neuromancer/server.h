@@ -1,5 +1,5 @@
 #pragma once
-#include "hacker.h"
+#include <string>
 
 using namespace std;
 
@@ -9,13 +9,18 @@ private:
 	int lifePoints;
 	int defensePoints;
 	int pressureValue;
-
+	
 public:
+	string name;
+
+
 	server();
 	virtual ~server();
 
 	int getDefensePoints();
 	int getPressureValue();
+	int getLifePoints();
+	string getName();
 
 	void changeLifePoints(int x);
 	void changeDefensePoints(int x);
