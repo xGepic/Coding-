@@ -3,8 +3,8 @@
 
 hacker::hacker() {
 
-	lifePoints = 100;
-	attackPoints = 20;
+	lifePoints = 1000;
+	attackPoints = 30;
 	score = 0;
 }
 
@@ -43,12 +43,11 @@ void hacker::changeAttackPoints(int x) {
 	attackPoints += x;
 }
 
- void hacker::attack(server* zone) {
+void hacker::attack(server* zone, int whichZone) {
 
-	
 	int fail = rand() % 100;
 
-	cout << endl << zone->getName() << " is attacked!" << endl << endl;
+	cout << "Zone " << whichZone << " is attacked!" << endl;
 
 	if (fail == 42) {
 
@@ -57,51 +56,47 @@ void hacker::changeAttackPoints(int x) {
 		return;
 	}
 
-	while ((this->getLifePoints() >= 0) && (zone->getDefensePoints() >= 0)) {
+	while (true) {
 
-		//cout << this->getAttackPoints() << " + " << zone->getPressureValue() << " > " << zone->getDefensePoints() << endl;
-
-		if ((this->getAttackPoints() + zone->getPressureValue()) > zone->getDefensePoints()) {
+		if ((this->getAttackPoints() + zone->getZonePressureVal(whichZone)) > zone->getZoneDefPoints(whichZone)) {
 
 			cout << endl << "Attack Successful!" << endl;
 
-			int diff = (this->getAttackPoints() + zone->getPressureValue()) - zone->getDefensePoints();
+			int diff = (this->getAttackPoints() + zone->getZonePressureVal(whichZone)) - zone->getZoneDefPoints(whichZone);
 
-			zone->changeLifePoints(-1);
-			zone->setZero();
-			zone->changeDefensePoints(3);
+			zone->lifePointsMinusOne();
+			zone->pressureValSetZero(whichZone);
+			zone->give3DefPoints(whichZone);
 
 			for (int i = 0; i < diff; i++) {
 
 				//to do 
 			}
+
 			this->changeAttackPoints(1);
 			this->changeScore(1);
 		}
 		else {
 
-			cout << endl << "Attack Failed!" << endl;
+			cout << "Attack Failed!" << endl;
 			this->changeLifePoints(-1);
 
 			if ((this->getLifePoints() % 10) == 0) {
 
 				this->changeAttackPoints(-2);
 			}
-			zone->changePressureValue(1);
+			zone->incPressureVal(whichZone);
 		}
-	}
 
-	if (this->getLifePoints() <= 0) {
+		if (zone->getLifePoints() <= 0) {
 
-		cout << "Hacker Dead!" << endl;
-		cout << endl << "Hacker Points: " << getScore() << endl;
-		cout << endl << "Server Life: " << zone->getLifePoints() << endl;
-	}
+			return;
+		}
 
-	if (zone->getDefensePoints() <= 0) {
+		if (this->getLifePoints() <= 0) {
 
-		cout << "Server Dead!" << endl;
-		cout << endl << "Hacker Points: " << getScore() << endl;
-		cout << endl << "Server Life: " << zone->getLifePoints() << endl;
+			cout << endl << "Hacker Dead!" << endl;
+			return;
+		}
 	}
 }
