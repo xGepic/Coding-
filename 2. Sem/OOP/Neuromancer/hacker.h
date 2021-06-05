@@ -1,6 +1,5 @@
 #pragma once
 #include <iostream>
-#include <algorithm>
 #include "server.h"
 
 using namespace std;
@@ -23,8 +22,6 @@ public:
 	void changeScore(int x);
 	void changeAttackPoints(int x);
 	void changeLifePoints(int x);
-	
-	void printStatus();
-	
-	void attack(int whichZone);
+
+	void attack(server* zone);
 };
