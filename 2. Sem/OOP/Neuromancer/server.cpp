@@ -3,8 +3,7 @@
 server::server() {
 
 	lifePoints = 100;
-	defensePoints = 20;
-	pressureValue = 0;
+	zonenArray = { {"Zone1", 20, 0}, {"Zone2", 20, 0}, {"Zone3", 20, 0}, {"Zone4", 20, 0}, {"Zone5", 20, 0} };
 }
 
 server::~server() {
@@ -12,34 +11,9 @@ server::~server() {
 
 }
 
-void server::changeDefensePoints(int x) {
+void server::lifePointsMinusOne() {
 
-	defensePoints += x;
-}
-
-void server::changeLifePoints(int x) {
-
-	lifePoints += x;
-}
-
-void server::changePressureValue(int x) {
-
-	pressureValue += x;
-}
-
-void server::setZero() {
-
-	pressureValue = 0;
-}
-
-int server::getDefensePoints() {
-
-	return this->defensePoints;
-}
-
-int server::getPressureValue() {
-
-	return this->pressureValue;
+	lifePoints -= 1;
 }
 
 int server::getLifePoints() {
@@ -47,82 +21,29 @@ int server::getLifePoints() {
 	return this->lifePoints;
 }
 
-string server::getName() {
+int server::getZoneDefPoints(int whichZone) {
 
-	return this->name;
+	return zonenArray[whichZone].defensePoints;
 }
 
-defenseZone1::defenseZone1() {
+int server::getZonePressureVal(int whichZone) {
 
-	name = "DefenseZone1";
+
+	return zonenArray[whichZone].pressureValue;
 }
 
-defenseZone1::~defenseZone1() {
+void server::pressureValSetZero(int whichZone) {
 
-	delete this;
+
+	zonenArray[whichZone].pressureValue = 0;
 }
 
-void defenseZone1::beAttacked() {
+void server::give3DefPoints(int whichZone) {
 
-
+	zonenArray[whichZone].defensePoints += 3;
 }
 
-defenseZone2::defenseZone2() {
+void server::incPressureVal(int whichZone) {
 
-	name = "DefenseZone2";
-}
-
-defenseZone2::~defenseZone2() {
-
-	delete this;
-}
-
-void defenseZone2::beAttacked() {
-
-
-}
-
-defenseZone3::defenseZone3() {
-
-	name = "DefenseZone3";
-}
-
-defenseZone3::~defenseZone3() {
-
-	delete this;
-}
-
-void defenseZone3::beAttacked() {
-
-
-}
-
-defenseZone4::defenseZone4() {
-
-	name = "DefenseZone4";
-}
-
-defenseZone4::~defenseZone4() {
-
-	delete this;
-}
-
-void defenseZone4::beAttacked() {
-
-
-}
-
-defenseZone5::defenseZone5() {
-
-	name = "DefenseZone5";
-}
-
-defenseZone5::~defenseZone5() {
-
-	delete this;
-}
-
-void defenseZone5::beAttacked() {
-
-
+	zonenArray[whichZone].pressureValue += 1;
 }
