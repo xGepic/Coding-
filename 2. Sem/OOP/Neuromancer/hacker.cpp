@@ -13,11 +13,6 @@ hacker::~hacker() {
 
 }
 
-void hacker::printStatus() {
-
-
-}
-
 int hacker::getAttackPoints() {
 
 	return this->attackPoints;
@@ -48,33 +43,12 @@ void hacker::changeAttackPoints(int x) {
 	attackPoints += x;
 }
 
-void hacker::attack(int whichZone) {
+ void hacker::attack(server* zone) {
 
-	server* zone = nullptr;
+	
 	int fail = rand() % 100;
 
-	cout << endl << "Zone " << whichZone << " is attacked!" << endl << endl;
-
-	if (whichZone == 1) {
-
-		zone = new defenseZone1();
-	}
-	if (whichZone == 2) {
-
-		zone = new defenseZone2();
-	}
-	if (whichZone == 3) {
-
-		zone = new defenseZone3();
-	}
-	if (whichZone == 4) {
-
-		zone = new defenseZone4();
-	}
-	if (whichZone == 5) {
-
-		zone = new defenseZone5();
-	}
+	cout << endl << zone->getName() << " is attacked!" << endl << endl;
 
 	if (fail == 42) {
 
