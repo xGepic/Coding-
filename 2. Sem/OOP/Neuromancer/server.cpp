@@ -42,9 +42,19 @@ int server::getPressureValue() {
 	return this->pressureValue;
 }
 
+int server::getLifePoints() {
+
+	return this->lifePoints;
+}
+
+string server::getName() {
+
+	return this->name;
+}
+
 defenseZone1::defenseZone1() {
 
-
+	name = "DefenseZone1";
 }
 
 defenseZone1::~defenseZone1() {
@@ -59,7 +69,7 @@ void defenseZone1::beAttacked() {
 
 defenseZone2::defenseZone2() {
 
-
+	name = "DefenseZone2";
 }
 
 defenseZone2::~defenseZone2() {
@@ -74,7 +84,7 @@ void defenseZone2::beAttacked() {
 
 defenseZone3::defenseZone3() {
 
-
+	name = "DefenseZone3";
 }
 
 defenseZone3::~defenseZone3() {
@@ -89,7 +99,7 @@ void defenseZone3::beAttacked() {
 
 defenseZone4::defenseZone4() {
 
-
+	name = "DefenseZone4";
 }
 
 defenseZone4::~defenseZone4() {
@@ -104,7 +114,7 @@ void defenseZone4::beAttacked() {
 
 defenseZone5::defenseZone5() {
 
-
+	name = "DefenseZone5";
 }
 
 defenseZone5::~defenseZone5() {
