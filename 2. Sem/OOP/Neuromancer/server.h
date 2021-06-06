@@ -25,9 +25,12 @@ public:
 	int getLifePoints();
 	int getZoneDefPoints(int whichZone);
 	int getZonePressureVal(int whichZone);
+	string getZoneName(int whichZone);
 
 	void lifePointsMinusOne();
 	void pressureValSetZero(int whichZone);
-	void give3DefPoints(int whichZone);
+	void giveDefPoints(int whichZone);
 	void incPressureVal(int whichZone);
+	void decZoneDefPoints(int whichZone);
+	void incZoneDefPoints(int whichZone);
 };
