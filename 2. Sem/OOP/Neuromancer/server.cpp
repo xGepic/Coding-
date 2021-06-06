@@ -2,7 +2,7 @@
 
 server::server() {
 
-	lifePoints = 100;
+	lifePoints = 50;
 	zonenArray = { {"Zone1", 20, 0}, {"Zone2", 20, 0}, {"Zone3", 20, 0}, {"Zone4", 20, 0}, {"Zone5", 20, 0} };
 }
 
@@ -19,6 +19,11 @@ void server::lifePointsMinusOne() {
 int server::getLifePoints() {
 
 	return this->lifePoints;
+}
+
+string server::getZoneName(int whichZone) {
+
+	return zonenArray[whichZone].name;
 }
 
 int server::getZoneDefPoints(int whichZone) {
@@ -38,7 +43,7 @@ void server::pressureValSetZero(int whichZone) {
 	zonenArray[whichZone].pressureValue = 0;
 }
 
-void server::give3DefPoints(int whichZone) {
+void server::giveDefPoints(int whichZone) {
 
 	zonenArray[whichZone].defensePoints += 3;
 }
@@ -46,4 +51,14 @@ void server::give3DefPoints(int whichZone) {
 void server::incPressureVal(int whichZone) {
 
 	zonenArray[whichZone].pressureValue += 1;
+}
+
+void server::decZoneDefPoints(int whichZone) {
+
+	zonenArray[whichZone].defensePoints--;
+}
+
+void server::incZoneDefPoints(int whichZone) {
+
+	zonenArray[whichZone].defensePoints++;
 }
