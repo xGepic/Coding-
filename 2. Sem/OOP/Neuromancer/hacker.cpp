@@ -1,64 +1,163 @@
-#include "server.h"
+#include "hacker.h"
 
-server::server() {
+hacker::hacker(string namee) {
 
-	lifePoints = 50;
-	zonenArray = { {"Zone1", 20, 0}, {"Zone2", 20, 0}, {"Zone3", 20, 0}, {"Zone4", 20, 0}, {"Zone5", 20, 0} };
+	lifePoints = 100;
+	attackPoints = 20;
+	score = 0;
+	name = namee;
 }
 
-server::~server() {
+hacker::~hacker() {
 
 
 }
 
-void server::lifePointsMinusOne() {
+int hacker::getAttackPoints() {
 
-	lifePoints -= 1;
+	return this->attackPoints;
 }
 
-int server::getLifePoints() {
+int hacker::getLifePoints() {
 
 	return this->lifePoints;
 }
 
-string server::getZoneName(int whichZone) {
+int hacker::getScore() {
 
-	return zonenArray[whichZone].name;
+	return this->score;
 }
 
-int server::getZoneDefPoints(int whichZone) {
+string hacker::getName() {
 
-	return zonenArray[whichZone].defensePoints;
+	return this->name;
 }
 
-int server::getZonePressureVal(int whichZone) {
+void hacker::changeScore(int x) {
 
-
-	return zonenArray[whichZone].pressureValue;
+	score += x;
 }
 
-void server::pressureValSetZero(int whichZone) {
+void hacker::changeLifePoints(int x) {
 
-
-	zonenArray[whichZone].pressureValue = 0;
+	lifePoints += x;
 }
 
-void server::giveDefPoints(int whichZone) {
+void hacker::changeAttackPoints(int x) {
 
-	zonenArray[whichZone].defensePoints += 3;
+	attackPoints += x;
 }
 
-void server::incPressureVal(int whichZone) {
+int hacker::rng(int x) {
 
-	zonenArray[whichZone].pressureValue += 1;
+	int temp = rand() % 5;
+
+	if (temp == x) {
+
+		rng(x);
+	}
+
+	return temp;
 }
 
-void server::decZoneDefPoints(int whichZone) {
+void hacker::attack(server* zone, int whichZone) {
 
-	zonenArray[whichZone].defensePoints--;
-}
+	int fail = rand() % 100;
 
-void server::incZoneDefPoints(int whichZone) {
+	if (fail == 42) {
 
-	zonenArray[whichZone].defensePoints++;
+		changeLifePoints(-5);
+		cout << "1 % Chance - Attack Failed" << endl;
+		return;
+	}
+
+	while (true) {
+
+		//cout << this->getAttackPoints() << " + " << zone->getZonePressureVal(whichZone) << " < " << zone->getZoneDefPoints(whichZone) << endl;
+
+		cout << this->getName() << " - ";
+
+		if ((this->getAttackPoints() + zone->getZonePressureVal(whichZone)) > zone->getZoneDefPoints(whichZone)) {
+
+			cout << "Attack Successful!" << endl;
+
+			int diff = (this->getAttackPoints() + zone->getZonePressureVal(whichZone)) - zone->getZoneDefPoints(whichZone);
+
+			m.lock();
+
+			zone->lifePointsMinusOne();
+			zone->pressureValSetZero(whichZone);
+			zone->giveDefPoints(whichZone);
+
+			int tempZone = rng(whichZone);
+
+			while (diff > 0) {
+
+				if (zone->getZoneDefPoints(tempZone) < 2) {
+
+					if (tempZone + 1 > 4) {
+
+						if (whichZone == 0) {
+
+							tempZone = 1;
+						}
+						else {
+
+							tempZone = 0;
+						}
+					}
+					else {
+
+						if (tempZone + 1 == whichZone) {
+
+							if (tempZone + 2 > 4) {
+
+								tempZone = 0;
+							}
+							else {
+
+								tempZone += 2;
+							}
+						}
+						else {
+
+							tempZone++;
+						}
+					}
+				}
+				zone->decZoneDefPoints(tempZone);
+				zone->incZoneDefPoints(whichZone);
+				diff--;
+			}
+
+			m.unlock();
+
+			this->changeAttackPoints(3);
+			this->changeScore(1);
+		}
+		else {
+
+			cout << "Attack Failed!" << endl;
+
+			this->changeLifePoints(-1);
+
+			if ((this->getLifePoints() % 10) == 0) {
+
+				this->changeAttackPoints(-2);
+			}
+
+			zone->incPressureVal(whichZone);
+		}
+
+		if (zone->getLifePoints() <= 0) {
+
+			return;
+		}
+
+		if (this->getLifePoints() <= 0) {
+
+			cout << endl << this->getName() << " Dead!" << endl;
+			return;
+		}
+	}
 }
