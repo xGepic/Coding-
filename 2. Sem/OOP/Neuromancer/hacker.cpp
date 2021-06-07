@@ -45,7 +45,7 @@ void hacker::changeLifePoints(int x) {
 
 void hacker::changeAttackPoints(int x) {
 
-	attackPoints += x;
+	this->attackPoints += x;
 }
 
 int hacker::rng(int x) {
@@ -54,7 +54,14 @@ int hacker::rng(int x) {
 
 	if (temp == x) {
 
-		rng(x);
+		if ((x != 1) && (x != 2) && (x != 3) && (x != 4)) {
+
+			return 1;
+		}
+		else {
+
+			return 0;
+		}
 	}
 
 	return temp;
@@ -73,9 +80,7 @@ void hacker::attack(server* zone, int whichZone) {
 
 	while (true) {
 
-		//cout << this->getAttackPoints() << " + " << zone->getZonePressureVal(whichZone) << " < " << zone->getZoneDefPoints(whichZone) << endl;
-
-		cout << this->getName() << " - ";
+		cout << "-" << zone->getZoneName(whichZone) << " is attacked by " << this->getName() << endl;
 
 		if ((this->getAttackPoints() + zone->getZonePressureVal(whichZone)) > zone->getZoneDefPoints(whichZone)) {
 
@@ -83,13 +88,13 @@ void hacker::attack(server* zone, int whichZone) {
 
 			int diff = (this->getAttackPoints() + zone->getZonePressureVal(whichZone)) - zone->getZoneDefPoints(whichZone);
 
-			m.lock();
-
 			zone->lifePointsMinusOne();
 			zone->pressureValSetZero(whichZone);
 			zone->giveDefPoints(whichZone);
 
 			int tempZone = rng(whichZone);
+
+			m.lock();
 
 			while (diff > 0) {
 
@@ -100,10 +105,14 @@ void hacker::attack(server* zone, int whichZone) {
 						if (whichZone == 0) {
 
 							tempZone = 1;
+							zone->decZoneDefPoints(tempZone);
+							zone->incZoneDefPoints(whichZone);
 						}
 						else {
 
 							tempZone = 0;
+							zone->decZoneDefPoints(tempZone);
+							zone->incZoneDefPoints(whichZone);
 						}
 					}
 					else {
@@ -113,26 +122,35 @@ void hacker::attack(server* zone, int whichZone) {
 							if (tempZone + 2 > 4) {
 
 								tempZone = 0;
+								zone->decZoneDefPoints(tempZone);
+								zone->incZoneDefPoints(whichZone);
 							}
 							else {
 
 								tempZone += 2;
+								zone->decZoneDefPoints(tempZone);
+								zone->incZoneDefPoints(whichZone);
 							}
 						}
 						else {
 
 							tempZone++;
+							zone->decZoneDefPoints(tempZone);
+							zone->incZoneDefPoints(whichZone);
 						}
 					}
 				}
-				zone->decZoneDefPoints(tempZone);
-				zone->incZoneDefPoints(whichZone);
-				diff--;
+				else {
+
+					zone->decZoneDefPoints(tempZone);
+					zone->incZoneDefPoints(whichZone);
+				}
+				diff -= 1;
 			}
 
 			m.unlock();
 
-			this->changeAttackPoints(3);
+			this->changeAttackPoints(1);
 			this->changeScore(1);
 		}
 		else {
@@ -142,6 +160,7 @@ void hacker::attack(server* zone, int whichZone) {
 			this->changeLifePoints(-1);
 
 			if ((this->getLifePoints() % 10) == 0) {
+
 
 				this->changeAttackPoints(-2);
 			}
