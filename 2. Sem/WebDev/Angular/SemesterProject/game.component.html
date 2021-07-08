@@ -1,0 +1,10 @@
+<div class="infobox">
+  <div class="labels">Spieler:</div>
+  <div id="userlabel" class="labels">{{username}}</div>
+</div>
+<div class="infobox">
+  <div class="labels">Zeit:</div>
+  <div id="zeitlabel" class="labels"></div>
+</div>
+<button mat-raised-button color="primary" (click)="onClick()">New Game!</button>
+<button mat-raised-button color="primary" *ngIf = "solved()" (click)="onSolved()">Click me if you want to save your highscore in a database!</button>
