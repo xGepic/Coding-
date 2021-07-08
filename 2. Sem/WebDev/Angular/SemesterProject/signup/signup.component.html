@@ -1,0 +1,28 @@
+<mat-card>
+    <mat-spinner *ngIf="isLoading"></mat-spinner>
+    <form *ngIf="!isLoading" (ngSubmit)="onSubmit()">
+        <mat-form-field apperance="fill">
+            <mat-label>Enter your email </mat-label>
+            <input matInput type="email" class="form-control" id="email" [formControl]="email" placeholder="E-Mail" required>
+            <mat-error *ngIf="email.invalid && (email.dirty || email.touched)">
+                <div *ngIf="email.errors?.required">Email is required</div>
+                <div *ngIf="email.value != '' &&email.invalid">Please provide a valid email address</div>
+            </mat-error> 
+        </mat-form-field>
+        <mat-form-field apperance="fill">
+            <mat-label>Enter your password </mat-label>
+            <input matInput [type]="hide ? 'password' : 'text'" id="password" placeholder="Password" required>
+            <button mat-icon-button type="button" matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+        </mat-form-field>
+        <mat-form-field apperance="fill">
+            <mat-label>Enter your password again </mat-label>
+            <input matInput [type]="hideSecond ? 'password' : 'text'" id="secondPassword" placeholder="SecondPassword" required>
+            <button mat-icon-button type="button" matSuffix (click)="hideSecond = !hideSecond" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                <mat-icon>{{hideSecond ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+        </mat-form-field>
+        <button mat-raised-button color="primary" type="submit">Register</button>
+    </form>
+</mat-card>
