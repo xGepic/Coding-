@@ -1,0 +1,14 @@
+<mat-toolbar>
+  <img style="height: 50px;width: 68px;" src="assets/images/Logo.png">
+  <button mat-raised-button *ngIf = "!func()" color="primary" type="button"  routerLink="/login">Login</button>
+  <form *ngIf = "func()" (ngSubmit)="onLogout()">
+    <button mat-raised-button color="primary" type="submit">Logout</button>
+  </form>
+  <button mat-raised-button *ngIf = "!func()" color="primary" type="button"  routerLink="/signup">Signup</button>
+  <button mat-raised-button color="primary" type="button"  routerLink="/faq">FAQ</button>
+  <button mat-raised-button color="primary" type="button"  routerLink="/highscore">HighScore</button>
+  <button mat-raised-button *ngIf= "func()" color="primary" type="button"  routerLink="/profile">Profile</button>
+  <button mat-raised-button color="primary" type="button"  routerLink="/game">Game</button>
+  </mat-toolbar>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <router-outlet></router-outlet>
