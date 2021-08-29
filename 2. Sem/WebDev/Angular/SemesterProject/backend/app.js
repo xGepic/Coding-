@@ -105,15 +105,7 @@ app.get("/highscore", function (req, res) {
     }
   });
 });
-/*
-app.post('/highscore', function (req, res) {
-  highscore.insert(req.body, function (error, newDoc) {   
-      res.status(200).json({
-          message: 'Successfully posted!'
-      }); 
-  });
-});
-*/
+
 app.post("/highscore", function (req, res) {
   highscore.update(
     { email: req.body.email },
