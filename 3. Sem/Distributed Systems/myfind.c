@@ -1,17 +1,13 @@
 #include <stdio.h>
-#include <iostream>
+#include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
 #include <sys/wait.h>
-#include <assert.h>
-
-using namespace std;
 
 //Function printUsage to print out the usage message
 void printUsage()
 {
-    cout << "Usage: ./myfind [-R] [-i] searchpath filename 1 [filename2] ... [filenameN]" << endl;
-    exit(-1);
+    fprintf(stderr, "Usage: ./myfind [-R] [-i] searchpath filename 1 [filename2] ... [filenameN]\n");
 }
 
 int main(int argc, char *argv[])
@@ -36,5 +32,4 @@ int main(int argc, char *argv[])
             break;
         }
     }
-    
 }
