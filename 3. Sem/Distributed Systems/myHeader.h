@@ -3,3 +3,8 @@
 #include <unistd.h>
 #include <sys/wait.h>
 #include <iostream>
+#include <string>
+#include <string.h>
+#include <dirent.h>
+#include <errno.h>
+#include <sys/stat.h>
