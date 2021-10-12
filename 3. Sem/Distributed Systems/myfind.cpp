@@ -13,6 +13,7 @@ bool isDirectory(char const *path)
 {
     DIR *dir = NULL;
     dir = opendir(path);
+
     // Wenn der Folder nicht geöffnet werden kann ist es kein Folder
     if (dir == NULL)
     {
@@ -29,23 +30,23 @@ bool isDirectory(char const *path)
 //dirName-> jetzige Ordner der durchsucht werden soll, name -> Datei die gesucht wird, iFlag -> Case Sensitive oder nicht, *found Pointer ob die Datei gefunden wurde oder nicht
 void recursiveSearch(string dirName, string name, bool iFlag, bool *found)
 {
-    char finalPath[PATH_MAX + 1];         //Der Pfad zu gefundener Datei oder weiteren Suche
-    struct dirent *direntp;               //aktueller Ordner Pointer
-    DIR *dirp = opendir(dirName.c_str()); //der Ordner von dirName wird geöffnet
+    char finalPath[PATH_MAX + 1];           //Der Pfad zu gefundener Datei oder weiteren Suche
+    struct dirent *direntp;                 //aktueller Ordner Pointer
+    DIR *dirp = opendir(dirName.c_str());   //der Ordner von dirName wird geöffnet
 
     //die Schleife listet alle Dateien des Ordners auf und geht sie einzeln durch
     while ((direntp = readdir(dirp)) != NULL && *found == false)
     {
-        //Hier wird jeder eintrag des aktuellen Arrays finalPath mit 0 überschrieben
-        memset(finalPath, 0, PATH_MAX + 1);
+        memset(finalPath, 0, PATH_MAX + 1); //Path String mit Nullen überschreiben
+        
+        //Mit dem If werden die dot-Folders ignoriert
         if (strcmp(direntp->d_name, ".") && strcmp(direntp->d_name, ".."))
         {
             strcat(finalPath, dirName.c_str()); //hängt den jetztigen Ordner an das Array finalPath an
             strcat(finalPath, "/");             //Hängt den Schrägstrich an
             strcat(finalPath, direntp->d_name); //die Datei aus dem aktuellen Durchlauf der Schleife wird angehängt
-
-            bool compResult = false; //Datei gefunden bool
-
+            bool compResult = false;            //Datei gefunden bool
+            
             //Auf groß und kleinschreibung achten
             if (iFlag)
             {
@@ -60,7 +61,6 @@ void recursiveSearch(string dirName, string name, bool iFlag, bool *found)
             {
                 // Datei pfad ausgeben
                 cout << getpid() << ": " << direntp->d_name << ": " << finalPath << endl;
-                // Gefunden auf wahr setzen
                 *found = true;
             }
             //Wenn es ein Ordner ist, dann tiefer gehen (reskursivität)
@@ -72,19 +72,17 @@ void recursiveSearch(string dirName, string name, bool iFlag, bool *found)
     }
     closedir(dirp); //Ordner schließen damit man keine Zombie Prozesse hat
 }
-
 int main(int argc, char *argv[])
 {
-    pid_t pid;                       //process ID
-    char op;                         //operator
-    bool rFlag = false;              //bool for R Flag
-    bool iFlag = false;              //bool for i Flag
-    string files[argc - optind - 1]; //string for the filnames, as big as necessary
-    string dir;                      //string for directory
-    int status = 0;                  //status
+    int status = 0;                      //status
+    char op;                             //operator
+    bool rFlag = false;                  //bool for R Flag
+    bool iFlag = false;                  //bool for i Flag
+    string filenames[argc - optind - 1]; //string for the filnames, as big as necessary
+    string dir;                          //string for directory
 
-    //Loop through all the flags
-    while ((op = getopt(argc, argv, "Ri:")) != EOF)
+    //Loop durch die Flags mit Getopt
+    while ((op = getopt(argc, argv, "Ri")) != EOF)
     {
         switch (op)
         {
@@ -100,8 +98,7 @@ int main(int argc, char *argv[])
             break;
         }
     }
-
-    //Get directory and files that follow after the flags
+    //Loop für Folder und Files
     for (int i = optind; i < argc; i++)
     {
         if (i == optind)
@@ -110,11 +107,10 @@ int main(int argc, char *argv[])
         }
         else
         {
-            files[i - optind - 1] = argv[i];
+            filenames[i - optind - 1] = argv[i];
         }
     }
-
-    //search
+    //Suche
     for (int i = optind + 1; i < argc; i++)
     {
         pid_t pid = fork();
@@ -122,7 +118,7 @@ int main(int argc, char *argv[])
         {
         //If -1 --> Child Process Error
         case -1:
-            cout << "Child process error" << endl;
+            cout << "Child process Error\n";
             exit(EXIT_FAILURE);
             break;
         //If 0 --> We are in the Child Process
@@ -136,7 +132,7 @@ int main(int argc, char *argv[])
             }
             else
             {
-                cout << "Search: " << dir.c_str() << ", " << files[i] << endl;
+                cout << "Search: " << dir.c_str() << ", " << filenames[i] << endl;
 
                 char pathBuf[PATH_MAX + 1];       //Pfad Buffer für Ausgabe
                 struct dirent *direntp;           //aktueller Ordner Pointer
@@ -161,7 +157,7 @@ int main(int argc, char *argv[])
                         *foundP = true;                                                         //Gefunden Bool setzen
                     }
                 }
-                // do this to have no zombies process after
+                //Um keine Zombie Prozesse zu haben - Aus den CodeBeispielen im Moodle 
                 while ((closedir(dirp) == -1) && (errno == EINTR))
                     ;
             }
