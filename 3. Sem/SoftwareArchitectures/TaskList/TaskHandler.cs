@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,6 +19,12 @@ namespace Tasklist
         public void Hello()
         {
             Console.WriteLine($"\n\nTaskList by {ListOwner}\n");
+            //dummy tasks
+            Task dummy1 = new("Einkaufen", "Nach der FH zum Billa einkaufen fahren!", 50, DateTime.Parse("1.10.2021"));
+            Task dummy2 = new("Lernen", "Erste Abgabe für Softwarearchitekturen fertigstellen", 75, DateTime.Parse("5.10.2021"));
+            TaskList.Add(dummy1);
+            TaskList.Add(dummy2);
+            //dummy tasks
         }
         public void AddTask()
         {
@@ -48,6 +54,11 @@ namespace Tasklist
             {
                 Console.Clear();
                 Console.WriteLine("\nError: Please enter an Integer!\n");
+            }
+            catch (OverflowException)
+            {
+                Console.Clear();
+                Console.WriteLine("\nError: Please enter a valid Integer!\n");
             }
         }
         public void Display()
@@ -145,6 +156,11 @@ namespace Tasklist
                 Console.Clear();
                 Console.WriteLine("\nError: Please enter an Integer!\n");
             }
+            catch (OverflowException)
+            {
+                Console.Clear();
+                Console.WriteLine("\nError: Please enter a valid Integer!\n");
+            }
         }
         public void Filter()
         {
@@ -171,6 +187,36 @@ namespace Tasklist
                 TaskList = TaskList.OrderBy(x => x.DueDate).ToList();
                 Console.WriteLine("\nTasklist Ordered!\n");
             }
+            if (input == 3)
+            {
+                DisplayExpiredTasks();
+            }
+        }
+        private void DisplayExpiredTasks()
+        {
+            int i = 1;
+            if (IsEmpty(TaskList))
+            {
+                Console.Clear();
+                Console.WriteLine();
+                Console.WriteLine("The List is Empty!\n");
+                return;
+            }
+            foreach (Task task in TaskList) if (task.DueDate <= DateTime.Today)
+                {
+                    Console.WriteLine();
+                    Console.WriteLine($"Task {i}");
+                    Console.Write("Name: ");
+                    Console.Write(task.TaskName + "\n");
+                    Console.Write("Description: ");
+                    Console.Write(task.TaskText + "\n");
+                    Console.Write("Priority: ");
+                    Console.Write(task.Priority + "\n");
+                    Console.Write("DueDate: ");
+                    Console.Write(task.DueDate.ToLongDateString() + "\n");
+                    i++;
+                }
+            Console.WriteLine("\n");
         }
         private static bool IsEmpty(List<Task> taskList)
         {
