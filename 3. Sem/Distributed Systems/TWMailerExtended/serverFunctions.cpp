@@ -487,8 +487,8 @@ void myList(char buffer[BUFFER], int current_socket)
     if (send(current_socket, msgList.c_str(), strlen(msgList.c_str()), 0) == -1) //send recieved message to socket
     {
         perror("send answer failed");
-        //return NULL;
     }
+    myCounter = 0;
     memset(buffer, 0, strlen(buffer));
 }
 
