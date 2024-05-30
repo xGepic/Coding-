@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>Tour_Planner_Service</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="log4net" Version="2.0.14" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Log4Net.AspNetCore" Version="6.1.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Tour-Planner-Business\Tour-Planner-Business.csproj" />
+    <ProjectReference Include="..\Tour-Planner-DB\Tour-Planner-DB.csproj" />
+    <ProjectReference Include="..\Tour-Planner-Model\Tour-Planner-Model.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="MyCSV\" />
+    <Folder Include="Reports\" />
+  </ItemGroup>
+
+</Project>
