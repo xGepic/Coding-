@@ -1,0 +1,9 @@
+html {
+  background: linear-gradient(to right, #cca06e, #6892a3);
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
