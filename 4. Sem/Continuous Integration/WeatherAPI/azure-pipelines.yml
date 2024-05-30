@@ -1,0 +1,75 @@
+name: .NET
+
+trigger:
+  branches:
+    include: [master]
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  buildConfiguration: "Release"
+
+stages:
+  #Linting
+  - stage: Lint
+    jobs:
+      - job: Lint
+        steps:
+          - task: SonarCloudPrepare@1
+            displayName: SonarCloudPrepare
+            inputs:
+              SonarCloud: "SonarCloud"
+              organization: "xgepic"
+              scannerMode: "MSBuild"
+              configMode: "manual"
+              projectKey: "DemoWeatherAPI"
+              cliProjectName: "WeatherAPI"
+              cliSources: "."
+          - task: DotNetCoreCLI@2
+            displayName: build
+            inputs:
+              command: "build"
+          - task: SonarCloudAnalyze@1
+            displayName: SonarCloudAnalyze
+          - task: SonarCloudPublish@1
+            displayName: SonarCloudPublish
+            inputs:
+              pollingTimeoutSec: "300"
+  #Testing
+  - stage: Test
+    jobs:
+      - job: Test
+        steps:
+          - task: DotNetCoreCLI@2
+            displayName: Testing
+            inputs:
+              command: "test"
+              projects: "**/WeatherForecastTests/*.csproj"
+              arguments: '--configuration $(buildConfiguration) --collect "Code coverage" /p:ExcludeByFile="**/API/program.cs"'
+  #Building
+  - stage: Build
+    jobs:
+      - job: Build
+        steps:
+          - task: DotNetCoreCLI@2
+            displayName: Restore
+            inputs:
+              command: "restore"
+          - task: DotNetCoreCLI@2
+            displayName: build
+            inputs:
+              command: "build"
+  #Deploying
+  - stage: Deploy
+    jobs:
+      - job: Deploy
+        steps:
+          - task: Docker@2
+            displayName: deploy
+            inputs:
+              containerRegistry: "DockerHubConnection"
+              repository: "xgepic/weather-api"
+              command: "buildAndPush"
+              Dockerfile: "**/API/Dockerfile"
+              tags: latest
