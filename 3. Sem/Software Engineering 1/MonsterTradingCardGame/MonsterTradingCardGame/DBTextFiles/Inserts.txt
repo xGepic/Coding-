@@ -1,0 +1,47 @@
+﻿//////////////////////////////////////////////////
+//INSERTS
+
+INSERT INTO card VALUES('FireKnight', 15, 1, 1, 4);
+INSERT INTO card VALUES('WaterWizzard', 10, 1, 2, 2);
+INSERT INTO card VALUES('GrassDragon', 20, 1, 0, 1);
+INSERT INTO card VALUES('TheKraken', 25, 1, 2, 5);
+INSERT INTO card VALUES('WaterGoblin', 10, 1, 2, 0);
+INSERT INTO card VALUES('FireOrk', 15, 1, 1, 3);
+INSERT INTO card VALUES('FireSpell', 10, 0, 1);
+INSERT INTO card VALUES('WaterSpell', 10, 0, 2);
+INSERT INTO card VALUES('GrassSpell', 10, 0, 0);
+INSERT INTO card VALUES('WaterKnight', 15, 1, 2, 4);
+INSERT INTO card VALUES('GrassKnight', 15, 1, 0, 4);
+INSERT INTO card VALUES('FireWizzard', 10, 1, 1, 2);
+INSERT INTO card VALUES('GrassWizzard', 10, 1, 0, 2);
+INSERT INTO card VALUES('FireDragon', 20, 1, 1, 1);
+INSERT INTO card VALUES('WaterDragon', 20, 1, 2, 1);
+INSERT INTO card VALUES('FireGoblin', 10, 1, 1, 0);
+INSERT INTO card VALUES('GrassGoblin', 10, 1, 0, 0);
+INSERT INTO card VALUES('WaterOrk', 15, 1, 2, 3);
+INSERT INTO card VALUES('GrassOrk', 15, 1, 0, 3);
+INSERT INTO card VALUES('Fireball', 15, 0, 1);
+INSERT INTO card VALUES('PyroBlast', 20, 0, 1);
+INSERT INTO card VALUES('Surfer', 15, 0, 2);
+INSERT INTO card VALUES('TidalWaves', 20, 0, 2);
+INSERT INTO card VALUES('VineWhip', 15, 0, 0);
+INSERT INTO card VALUES('SolarBeam', 20, 0, 0);
+INSERT INTO card VALUES('Hydro Pump', 25, 0, 2);
+INSERT INTO card VALUES('Inferno', 25, 0, 1);
+INSERT INTO card VALUES('LeafStorm', 25, 0, 0);
+
+
+//CheatSheet
+VALUES(name, damage, monsterORspell, element, monstertype)
+
+GRASS = 0
+FIRE = 1
+WATER = 2
+
+Goblin = 0 
+Dragon = 1
+Wizzard = 2
+Ork = 3
+Knight = 4
+Kraken = 5
+Elf = 6

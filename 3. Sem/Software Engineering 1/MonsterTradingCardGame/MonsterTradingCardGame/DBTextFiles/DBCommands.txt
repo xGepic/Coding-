@@ -1,0 +1,33 @@
+﻿//////////////////////////////////////////////////
+//INSERTS
+
+CREATE TABLE player(
+	username varchar(20) NOT NULL PRIMARY KEY,
+	password text NOT NULL, ELO int NOT NULL,
+	coins int NOT NULL,
+	salt bytea NOT NULL
+);
+
+CREATE TABLE card(
+	name varchar(24) NOT NULL PRIMARY KEY,
+	damage int NOT NULL,
+	spellOrMonster int NOT NULL,
+	element int NOT NULL,
+	MonsterType int
+);
+
+CREATE TABLE stackCards(
+	userName varchar(24) NOT NULL,
+	cardName varchar(24) UNIQUE,
+	FOREIGN KEY(userName) REFERENCES player(username),
+	FOREIGN KEY(cardName) REFERENCES card(name),
+	UNIQUE(userName, cardName)
+);
+
+CREATE TABLE deckCards(
+	userName varchar(24) NOT NULL,
+	cardName varchar(24) UNIQUE,
+	FOREIGN KEY(userName) REFERENCES player(username),
+	FOREIGN KEY(cardName) REFERENCES stackCards(cardName),
+	UNIQUE(userName, cardName)
+);
